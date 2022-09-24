@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="accionesPocketSchool">#FDB137</color>
+    <color name="backgroundPocketSchool">#FEEAA5</color>
+    <color name="fuente1PocketSchool">#F9F8F3</color>
+    <color name="fuente2PocketSchool">#202E2F</color>
+    <color name="fuente3PocketSchool">#E6F0F0</color>
 </resources>

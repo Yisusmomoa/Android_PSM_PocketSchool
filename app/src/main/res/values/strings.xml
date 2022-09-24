@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PSM_PocketSchool</string>
+    <string name="spinner_text">Type user</string>
 </resources>
