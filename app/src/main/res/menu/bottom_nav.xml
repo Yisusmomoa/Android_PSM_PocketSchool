@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Search"
+        android:id="@+id/search"
+
+        android:icon="@drawable/search_icon_foreground" />
+
+    <item android:title="Profile"
+        android:id="@+id/profile"
+        android:icon="@drawable/person_icon_foreground" />
+
+    <item android:title="Home"
+        android:id="@+id/home"
+        android:icon="@drawable/home_icon_foreground"/>
+
+    <item android:title="Mis tareas"
+        android:id="@+id/mistareas"
+        android:icon="@drawable/homework_icon_foreground"/>
+
+    <item android:title="Mis grupos"
+        android:id="@+id/misgrupos"
+        android:icon="@drawable/people_icon_foreground"/>
+</menu>
