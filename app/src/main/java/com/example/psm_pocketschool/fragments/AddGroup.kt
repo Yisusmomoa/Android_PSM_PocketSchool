@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.psm_pocketschool.Adapters.AdapterHomeFragment
-import com.example.psm_pocketschool.News
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.Toast
 import com.example.psm_pocketschool.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -18,16 +18,13 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MisTareas.newInstance] factory method to
+ * Use the [AddGroup.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MisTareas : Fragment() {
+class AddGroup : Fragment(), AdapterView.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var adapter: AdapterHomeFragment
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var newsArrayList:ArrayList<News>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,18 +39,27 @@ class MisTareas : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mis_tareas, container, false)
+        return inflater.inflate(R.layout.fragment_add_group, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataInitialize()
-        val layoutManager= LinearLayoutManager(context)
-        recyclerView=view.findViewById(R.id.rvMisTareas)
-        recyclerView.layoutManager=layoutManager
-        recyclerView.setHasFixedSize(true)
-        adapter= AdapterHomeFragment(newsArrayList)
-        recyclerView.adapter=adapter
+        val listView:ListView=view.findViewById(R.id.listStudentsAdd)
+        val listOfItem:ArrayList<String> = setMultipleListView()
+        //val arrayAdapter:ArrayAdapter<String> =ArrayAdapter(view.context, android.R.layout.simple_list_item_multiple_choice, listOfItem)
+        val arrayAdapter:ArrayAdapter<String> =ArrayAdapter(view.context, android.R.layout.simple_list_item_multiple_choice, listOfItem)
+        listView.choiceMode=ListView.CHOICE_MODE_MULTIPLE
+        listView.adapter=arrayAdapter
+        listView.onItemClickListener=this
+    }
+
+    private fun setMultipleListView():ArrayList<String>{
+        val arrayList:ArrayList<String> = ArrayList()
+        for(i in 1..30){
+            arrayList.add("Application List $i")
+        }
+
+        return arrayList
     }
     companion object {
         /**
@@ -62,24 +68,23 @@ class MisTareas : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MisTareas.
+         * @return A new instance of fragment AddGroup.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MisTareas().apply {
+            AddGroup().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
     }
-    private fun dataInitialize(){
-        newsArrayList= arrayListOf<News>()
-        for (i in 1..10){
-            val new: News = News("titulo${i}", "Desc${i+1}", true)
-            newsArrayList.add(new)
 
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val options:String = parent?.getItemAtPosition(position) as String
+        if (view != null) {
+            Toast.makeText(view.context, "Clicked by: $options", Toast.LENGTH_SHORT).show()
         }
     }
 }

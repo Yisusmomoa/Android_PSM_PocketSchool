@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.psm_pocketschool.Adapters.AdapterGroupsFragment
+import com.example.psm_pocketschool.Adapters.AdapterHomeFragment
+import com.example.psm_pocketschool.News
 import com.example.psm_pocketschool.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +27,10 @@ class Groups : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var adapter: AdapterGroupsFragment
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var newsArrayList:ArrayList<News>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +45,24 @@ class Groups : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_groups, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val addGroup: View = view.findViewById(R.id.addGroup)
+        addGroup.setOnClickListener {
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.frame_layout, AddGroup())
+            transaction?.disallowAddToBackStack()
+            transaction?.commit()
+        }
+        dataInitialize()
+        val layoutManager=LinearLayoutManager(context)
+        recyclerView=view.findViewById(R.id.rvGrupos)
+        recyclerView.layoutManager=layoutManager
+        recyclerView.setHasFixedSize(true)
+        adapter=AdapterGroupsFragment(newsArrayList)
+        recyclerView.adapter=adapter
     }
 
     companion object {
@@ -56,5 +83,13 @@ class Groups : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    private fun dataInitialize(){
+        newsArrayList= arrayListOf<News>()
+        for (i in 1..10){
+            val new:News=News("Nombre grupo${i}", "Desc${i+1}", true)
+            newsArrayList.add(new)
+
+        }
     }
 }
