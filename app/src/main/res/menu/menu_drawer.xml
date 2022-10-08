@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/opcInbox"
+        android:title="Inbox" />
+    <item
+        android:id="@+id/OpcOutbox"
+        android:title="Outbox" />
+    <item
+        android:id="@+id/OpcFavorites"
+        android:title="Favorites">
+        <menu>
+            <item
+                android:id="@+id/OpcFavorites_SubMenu1"
+                android:title="Item" />
+        </menu>
+    </item>
+    <group >
+        <item
+            android:id="@+id/OpcArchive"
+            android:title="Archive" />
+        <item
+            android:id="@+id/OpcSpam"
+            android:title="Spam" />
+    </group>
+</menu>

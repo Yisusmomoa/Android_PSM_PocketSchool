@@ -1,5 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/LogoPocketSchool_background.xml" value="0.21" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/LogoPocketSchool_foreground.xml" value="0.247" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/bg_custom.xml" value="0.2345" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/bg_spinner_tipo_usuario.xml" value="0.21" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_arrow_down.xml" value="0.1925" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.124" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.2595" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_attach_file_24.xml" value="0.2345" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2285" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_upload_24.xml" value="0.2345" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/logo_pocket_school_background.xml" value="0.124" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/logo_pocket_school_foreground.xml" value="0.124" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/search_icon_foreground.xml" value="0.227" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/activity_home.xml" value="0.2" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/activity_main2.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/activity_publicar_tarea.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/drawer_header.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_add_group.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_detalle_tarea.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_detalle_tarea_entregada.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_groups.xml" value="0.2" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_mis_tareas.xml" value="0.2" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_profile.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_profile_visit.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_publicar_tarea.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_publicar_tarea2.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_search.xml" value="0.2" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_sub_group.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/fragment_ver_grupo.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/item_groups.xml" value="0.264" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/item_groups2.xml" value="0.20778110303548525" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/item_groups3.xml" value="0.20778110303548525" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/item_grupo.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/item_student_multiple_choice.xml" value="0.176" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/spinner_background.xml" value="0.2076923076923077" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/menu/bottom_nav.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.253125" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/menu/menu_drawer.xml" value="0.253125" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/mipmap-anydpi-v26/LogoPocketSchool.xml" value="0.124" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/mipmap-anydpi-v26/LogoPocketSchool_round.xml" value="0.124" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
