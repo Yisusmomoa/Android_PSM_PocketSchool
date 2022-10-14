@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundPocketSchool"
+    tools:context=".MainActivity3">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/accionesPocketSchool">
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    app:titleTextColor="@color/fuente1PocketSchool"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:title="Pocket School">
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/txtAdjPdfs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_baseline_attach_file_24"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Adjuntar PDFS"
+                    android:textSize="28sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.148" />
+
+                <ListView
+                    android:id="@+id/listPDFSPublic"
+                    android:layout_width="300dp"
+                    android:layout_height="350dp"
+                    android:layout_marginBottom="256dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.495"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAdjPdfs"
+                    app:layout_constraintVertical_bias="0.827"
+                    tools:ignore="UnknownId"></ListView>
+
+                <Button
+                    android:id="@+id/btnSignUp"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="96dp"
+                    android:backgroundTint="@color/accionesPocketSchool"
+                    android:drawableRight="@drawable/ic_baseline_upload_24"
+                    android:padding="5dp"
+                    android:text="Publicar"
+                    android:textSize="24sp"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.496"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/_dynamic"
+                    app:layout_constraintVertical_bias="0.327"
+                    tools:ignore="UnknownIdInLayout" />
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottomNavigationView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/accionesPocketSchool"
+                    app:itemIconSize="35sp"
+                    app:itemIconTint="@color/fuente1PocketSchool"
+                    app:itemTextColor="@color/fuente1PocketSchool"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:menu="@menu/bottom_nav">
+                </com.google.android.material.bottomnavigation.BottomNavigationView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_gravity="left"
+            app:headerLayout="@layout/drawer_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:menu="@menu/menu_drawer"
+            >
+
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

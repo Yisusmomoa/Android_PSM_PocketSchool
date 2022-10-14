@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:id="@+id/drawer"
     android:background="@color/backgroundPocketSchool"
     tools:context=".Home">
@@ -53,7 +52,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:menu="@menu/bottom_nav"></com.google.android.material.bottomnavigation.BottomNavigationView>
+                app:menu="@menu/bottom_nav">
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -62,7 +62,6 @@
         android:layout_gravity="left"
         app:headerLayout="@layout/drawer_header"
         android:layout_width="match_parent"
-
         android:layout_height="match_parent"
         app:menu="@menu/menu_drawer"
         >

@@ -1,5 +1,6 @@
 package com.example.psm_pocketschool.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.psm_pocketschool.Adapters.AdapterHomeFragment
+import com.example.psm_pocketschool.MainActivity2
 import com.example.psm_pocketschool.News
 import com.example.psm_pocketschool.R
 
@@ -63,10 +65,12 @@ class Home : Fragment() {
 
         val addHomework: View = view.findViewById(R.id.addHomework)
         addHomework.setOnClickListener { view ->
-            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            val intent =Intent(view.context, MainActivity2::class.java)
+            startActivity(intent)
+            /*val transaction = activity?.supportFragmentManager?.beginTransaction()
             transaction?.replace(R.id.frame_layout, PublicarTarea())
             transaction?.disallowAddToBackStack()
-            transaction?.commit()
+            transaction?.commit()*/
             /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show()*/

@@ -3,6 +3,8 @@ package com.example.psm_pocketschool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.View
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
@@ -51,10 +53,8 @@ class Home : AppCompatActivity() {
         val toolbar=findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         val drawer=findViewById<DrawerLayout>(R.id.drawer)
         setSupportActionBar(toolbar)
-
         //Icono hamburgesa
-        val toggle=ActionBarDrawerToggle(this, drawer, toolbar, R.string.app_name,R.string.app_name )
-
+        val toggle=ActionBarDrawerToggle(this, drawer, toolbar, R.string.Open,R.string.Close )
         drawer.addDrawerListener(toggle)
         toggle.syncState()
     }
