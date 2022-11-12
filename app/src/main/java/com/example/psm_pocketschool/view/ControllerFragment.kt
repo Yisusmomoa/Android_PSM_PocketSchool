@@ -1,4 +1,4 @@
-package com.example.psm_pocketschool
+package com.example.psm_pocketschool.view
 
 import androidx.fragment.app.Fragment
 

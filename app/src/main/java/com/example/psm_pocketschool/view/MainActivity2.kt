@@ -1,9 +1,10 @@
-package com.example.psm_pocketschool
+package com.example.psm_pocketschool.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.example.psm_pocketschool.R
 
 class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

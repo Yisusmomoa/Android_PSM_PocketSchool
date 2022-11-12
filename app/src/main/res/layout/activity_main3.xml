@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundPocketSchool"
-    tools:context=".MainActivity3">
+    tools:context=".view.MainActivity3">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"

@@ -1,18 +1,14 @@
-package com.example.psm_pocketschool
+package com.example.psm_pocketschool.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
-import android.view.View
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.example.psm_pocketschool.R
 import com.example.psm_pocketschool.databinding.ActivityHomeBinding
-import com.example.psm_pocketschool.databinding.ActivityMainBinding
-import com.example.psm_pocketschool.fragments.*
-import com.example.psm_pocketschool.fragments.Home
+import com.example.psm_pocketschool.view.fragments.*
+import com.example.psm_pocketschool.view.fragments.Home
 
 class Home : AppCompatActivity() {
     private lateinit var binding:ActivityHomeBinding
@@ -26,19 +22,19 @@ class Home : AppCompatActivity() {
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.search->{
+                R.id.search ->{
                     replaceFragment(Search())
                 }
-                R.id.profile->{
+                R.id.profile ->{
                     replaceFragment(Profile())
                 }
-                R.id.home->{
+                R.id.home ->{
                     replaceFragment(Home())
                 }
-                R.id.mistareas->{
+                R.id.mistareas ->{
                     replaceFragment(MisTareas())
                 }
-                R.id.misgrupos->{
+                R.id.misgrupos ->{
                     replaceFragment(Groups())
                 }
                 else->{
@@ -54,7 +50,7 @@ class Home : AppCompatActivity() {
         val drawer=findViewById<DrawerLayout>(R.id.drawer)
         setSupportActionBar(toolbar)
         //Icono hamburgesa
-        val toggle=ActionBarDrawerToggle(this, drawer, toolbar, R.string.Open,R.string.Close )
+        val toggle=ActionBarDrawerToggle(this, drawer, toolbar, R.string.Open, R.string.Close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
     }

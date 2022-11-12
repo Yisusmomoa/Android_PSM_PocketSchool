@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundPocketSchool"
-    tools:context=".SignUp">
+    tools:context=".view.SignUp">
 
     <ImageView
         android:id="@+id/imageView2"

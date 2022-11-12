@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.psm_pocketschool.News
+import com.example.psm_pocketschool.view.News
 import com.example.psm_pocketschool.R
 
 class AdapterMisTareasFragment (private val List:Array<News>):

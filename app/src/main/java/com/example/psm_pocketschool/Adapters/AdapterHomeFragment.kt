@@ -6,13 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.psm_pocketschool.News
+import com.example.psm_pocketschool.view.News
 import com.example.psm_pocketschool.R
-import com.example.psm_pocketschool.fragments.DetalleTarea
-import com.example.psm_pocketschool.fragments.SubGroup
+import com.example.psm_pocketschool.view.fragments.DetalleTarea
 import java.time.LocalDate
-import java.time.Month
-import java.util.*
 import kotlin.collections.ArrayList
 
 class AdapterHomeFragment (private val List: ArrayList<News>):

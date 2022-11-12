@@ -1,5 +1,6 @@
-package com.example.psm_pocketschool.fragments
+package com.example.psm_pocketschool.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +9,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.psm_pocketschool.Adapters.AdapterHomeFragment
-import com.example.psm_pocketschool.News
+import com.example.psm_pocketschool.view.MainActivity2
+import com.example.psm_pocketschool.view.News
 import com.example.psm_pocketschool.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -16,18 +18,23 @@ import com.example.psm_pocketschool.R
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+
+
 /**
  * A simple [Fragment] subclass.
- * Use the [MisTareas.newInstance] factory method to
+ * Use the [Home.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MisTareas : Fragment() {
+class Home : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var adapter: AdapterHomeFragment
+
+    private lateinit var adapter:AdapterHomeFragment
     private lateinit var recyclerView: RecyclerView
     private lateinit var newsArrayList:ArrayList<News>
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +42,7 @@ class MisTareas : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -42,19 +50,33 @@ class MisTareas : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mis_tareas, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataInitialize()
-        val layoutManager= LinearLayoutManager(context)
-        recyclerView=view.findViewById(R.id.rvMisTareas)
+        val layoutManager=LinearLayoutManager(context)
+        recyclerView=view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager=layoutManager
         recyclerView.setHasFixedSize(true)
         adapter= AdapterHomeFragment(newsArrayList)
         recyclerView.adapter=adapter
+
+        val addHomework: View = view.findViewById(R.id.addHomework)
+        addHomework.setOnClickListener { view ->
+            val intent =Intent(view.context, MainActivity2::class.java)
+            startActivity(intent)
+            /*val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.frame_layout, PublicarTarea())
+            transaction?.disallowAddToBackStack()
+            transaction?.commit()*/
+            /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show()*/
+        }
     }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -62,18 +84,19 @@ class MisTareas : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MisTareas.
+         * @return A new instance of fragment Home.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MisTareas().apply {
+            Home().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
     }
+
     private fun dataInitialize(){
         newsArrayList= arrayListOf<News>()
         for (i in 1..10){
@@ -82,4 +105,5 @@ class MisTareas : Fragment() {
 
         }
     }
+
 }

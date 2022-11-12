@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.psm_pocketschool.News
+import com.example.psm_pocketschool.view.News
 import com.example.psm_pocketschool.R
-import com.example.psm_pocketschool.fragments.AddGroup
-import com.example.psm_pocketschool.fragments.SubGroup
+import com.example.psm_pocketschool.view.fragments.SubGroup
 
 class AdapterGroupsFragment(private val List: ArrayList<News>):
     RecyclerView.Adapter<AdapterGroupsFragment.MyViewHolder>() {
