@@ -8,16 +8,20 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.example.psm_pocketschool.R
+import com.example.psm_pocketschool.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var binding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding=ActivityMainBinding.inflate(layoutInflater)
+        //setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
-        val textViewSignUp=findViewById<TextView>(R.id.textViewSignUp)
-        textViewSignUp.setOnClickListener(this)
-        val btnLogin=findViewById<Button>(R.id.btnLogin)
-        btnLogin.setOnClickListener(this)
+        //val textViewSignUp=findViewById<TextView>(R.id.textViewSignUp)
+        binding.textViewSignUp.setOnClickListener(this)
+        //val btnLogin=findViewById<Button>(R.id.btnLogin)
+        binding.btnLogin.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
