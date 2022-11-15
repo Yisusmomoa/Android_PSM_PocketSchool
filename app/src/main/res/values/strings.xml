@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PSM_PocketSchool</string>
+    <string name="app_name">PocketSchool2</string>
     <string name="spinner_text">Type user</string>
     <string name="title_activity_main2">MainActivity2</string>
     <!-- Strings used for fragments for navigation -->
