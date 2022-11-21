@@ -26,6 +26,10 @@
         <item>correo3@correo.com</item>
         <item>correo4@correo.com</item>
     </string-array>
+    <string-array name="TypeUser">
+        <item>Teacher</item>
+        <item>Student</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Open">Open</string>

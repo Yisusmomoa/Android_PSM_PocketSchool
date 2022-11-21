@@ -7,6 +7,16 @@
     android:background="@color/backgroundPocketSchool"
     tools:context=".SignUp">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </ProgressBar>
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="217dp"
@@ -39,8 +49,18 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:hint="Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/editTextUserName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextEmailAddress"
@@ -49,9 +69,9 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:ems="10"
+            android:hint="Email"
             android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            android:text="Email" />
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -60,8 +80,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:ems="10"
-            android:inputType="textPassword"
-            android:text="Password" />
+            android:hint="Password"
+            android:inputType="textPassword" />
 
 
         <Spinner
@@ -72,7 +92,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/bg_spinner_tipo_usuario"
-
             />
 
         <Button
@@ -91,6 +110,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
