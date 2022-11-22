@@ -3,6 +3,7 @@ package com.example.psm_pocketschool.Controller.Login
 import android.util.Log
 import com.example.psm_pocketschool.Controller.Register.RegisterRepository
 import com.example.psm_pocketschool.Model.User.User
+import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
 import com.example.psm_pocketschool.View.ILoginView
 import com.example.psm_pocketschool.View.IRegisterView
 import com.example.psm_pocketschool.core.RetrofitHelper
@@ -40,10 +41,21 @@ class LoginController(
                 userAux.typeUser=response.body()!!.result.typeUser
                 userAux.imgUser=response.body()!!.result.imgUser
 
+                prefs.saveCredentials(userAux)
+
+                /*prefs.saveUid(userAux.uid)
+                prefs.saveEmail(userAux.email)
+                prefs.saveName(userAux.name)
+                prefs.saveCreatedAt(userAux.createdAt)
+                prefs.saveTypeUser(userAux.typeUser)
+                prefs.saveImgUser(userAux.imgUser)
+                prefs.saveUsername(userAux.username)
+                prefs.savePassword(userAux.password)*/
+
                 loginView.OnLoginSuccess("Login exitoso")
             } else {
                 Log.e("RETROFIT_ERROR", response.code().toString())
-                loginView.OnLoginError("Error Login")
+                loginView.OnLoginError("Error en la contraseña/password")
             }
         }
         /*CoroutineScope(Dispatchers.IO).launch {

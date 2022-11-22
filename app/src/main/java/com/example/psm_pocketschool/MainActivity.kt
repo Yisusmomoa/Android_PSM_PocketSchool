@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.psm_pocketschool.Controller.Login.LoginController
 import com.example.psm_pocketschool.Model.User.User
+import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
 import com.example.psm_pocketschool.View.ILoginView
 import com.example.psm_pocketschool.databinding.ActivityMainBinding
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ILoginView {
         //val btnLogin=findViewById<Button>(R.id.btnLogin)
         binding.btnLogin.setOnClickListener(this)
         loginController= LoginController(this)
+        checkUserValues()
     }
 
     override fun onClick(v: View?) {
@@ -60,4 +62,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ILoginView {
         }
     }
 
+    fun checkUserValues(){
+        val credential:User= prefs.getCredentials()
+
+        if (credential.uid.isNotEmpty()){
+            val intent=Intent(this, Home::class.java)
+            startActivity(intent)
+        }
+    }
 }
