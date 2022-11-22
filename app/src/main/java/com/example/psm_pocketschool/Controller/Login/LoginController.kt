@@ -17,7 +17,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 class LoginController(
-    private val registerView: ILoginView ):ILoginController {
+    private val loginView: ILoginView ):ILoginController {
     private val repository=LoginRepository()
     private var retrofit= RetrofitHelper.getRetrofit()
     override fun onLogin(user: User) {
@@ -40,8 +40,10 @@ class LoginController(
                 userAux.typeUser=response.body()!!.result.typeUser
                 userAux.imgUser=response.body()!!.result.imgUser
 
+                loginView.OnLoginSuccess("Login exitoso")
             } else {
                 Log.e("RETROFIT_ERROR", response.code().toString())
+                loginView.OnLoginError("Error Login")
             }
         }
         /*CoroutineScope(Dispatchers.IO).launch {

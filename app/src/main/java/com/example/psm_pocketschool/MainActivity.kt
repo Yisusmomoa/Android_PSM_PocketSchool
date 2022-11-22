@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.example.psm_pocketschool.Controller.Login.LoginController
 import com.example.psm_pocketschool.Model.User.User
 import com.example.psm_pocketschool.View.ILoginView
@@ -40,18 +41,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ILoginView {
                 Log.d("Click", "Loginbtn")
                 val userAux=User(binding.editTextPasswordLogin.text.toString(),binding.editTextEmailAddressLogin.text.toString())
                 loginController?.onLogin(userAux)
-                //val intent=Intent(this, Home::class.java)
-                //startActivity(intent)
+
             }
         }
     }
 
     override fun OnLoginSuccess(message: String?) {
-        TODO("Not yet implemented")
+        runOnUiThread {
+            Toast.makeText(this,message, Toast.LENGTH_LONG).show()
+        }
+        val intent=Intent(this, Home::class.java)
+        startActivity(intent)
     }
 
     override fun OnLoginError(message: String?) {
-        TODO("Not yet implemented")
+        runOnUiThread {
+            Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+        }
     }
 
 }
