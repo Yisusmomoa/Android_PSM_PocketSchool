@@ -19,6 +19,7 @@ class User {
      @SerializedName("createdAt") var createdAt:String=""
      @SerializedName("typeUser") var typeUser:String=""
      @SerializedName("profilePhoto") var imgUser:String=""
+     @SerializedName("carrer") var carrer:String=""
 
     constructor()
     constructor(name: String, username: String, password: String, email: String, typeUser: String) {
