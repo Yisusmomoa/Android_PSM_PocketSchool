@@ -19,8 +19,10 @@ import org.json.JSONObject
 
 class LoginController(
     private val loginView: ILoginView ):ILoginController {
+
     private val repository=LoginRepository()
     private var retrofit= RetrofitHelper.getRetrofit()
+
     override fun onLogin(user: User) {
         val jsonObject = JSONObject()
         jsonObject.put("password", user.password)
@@ -40,6 +42,7 @@ class LoginController(
                 userAux.createdAt=response.body()!!.result.createdAt
                 userAux.typeUser=response.body()!!.result.typeUser
                 userAux.imgUser=response.body()!!.result.imgUser
+                userAux.carrer=response.body()!!.result.carrer
 
                 prefs.saveCredentials(userAux)
 

@@ -9,33 +9,45 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.psm_pocketschool.Controller.GetCarrers.GetCarrersController
 import com.example.psm_pocketschool.Controller.Register.RegisterController
+import com.example.psm_pocketschool.Model.Carrer.Carrer
 import com.example.psm_pocketschool.Model.User.User
+import com.example.psm_pocketschool.View.IGetCarrersView
 import com.example.psm_pocketschool.View.IRegisterView
 import com.example.psm_pocketschool.databinding.ActivitySignUpBinding
 import java.util.*
+import kotlin.collections.ArrayList
 
-class SignUp : AppCompatActivity(), View.OnClickListener, IRegisterView, AdapterView.OnItemSelectedListener {
+class SignUp : AppCompatActivity(), View.OnClickListener, IRegisterView, AdapterView.OnItemSelectedListener, IGetCarrersView {
     private lateinit var binding:ActivitySignUpBinding
+
     var registerController:RegisterController?=null
+    var getCarrersController:GetCarrersController?=null
+
     private lateinit var typeUserSelecc: String
     private lateinit var typeUsers: ArrayAdapter<String>
+
+    private lateinit var carrers: ArrayAdapter<String>
+    private lateinit var carrerSelecc: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initSpinner()
         registerController= RegisterController(this)
+        getCarrersController=GetCarrersController(this)
+        getCarrersController!!.getCarrers()
+
+        initSpinner()
+        //initSpinnerCarrer()
 
         binding.textViewLogin.setOnClickListener(this)
         binding.btnSignUp.setOnClickListener(this)
     }
 
-    //TODO: Progress bar, validaciones
-    //falta progress bar
-    //correo electrónico (único)
+    //TODO: Progress bar,
 
     override fun onClick(v: View?) {
         val itemId= v?.id
@@ -47,13 +59,13 @@ class SignUp : AppCompatActivity(), View.OnClickListener, IRegisterView, Adapter
             }
             R.id.btnSignUp->{
                 //binding.progressBar.isVisible=true
-
                 val userAux=User(
                     binding.editTextPersonName.text.toString(),
                     binding.editTextUserName.text.toString(),
                     binding.editTextPassword.text.toString(),
                     binding.editTextEmailAddress.text.toString(),
-                    typeUserSelecc
+                    typeUserSelecc,
+                    carrerSelecc
                 )
                 if (validaciones(userAux)){
                     registerController?.onRegister(userAux)
@@ -70,7 +82,17 @@ class SignUp : AppCompatActivity(), View.OnClickListener, IRegisterView, Adapter
         binding.spinnerTipoUsuario.onItemSelectedListener=this
         binding.spinnerTipoUsuario.adapter=typeUsers
     }
+    fun initSpinnerCarrer(listCarrers: ArrayList<Carrer>){
+        carrers=ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
+        var listNameCarrers= arrayListOf<String>()
+        listCarrers.forEach {
+            listNameCarrers!!.add(it.name)
+        }
+        carrers.addAll(listNameCarrers!!)
+        binding.spinnerCarrera.onItemSelectedListener=this
+        binding.spinnerCarrera.adapter=carrers
 
+    }
     fun validaciones(user: User):Boolean{
         var resultado=true
 
@@ -109,16 +131,25 @@ class SignUp : AppCompatActivity(), View.OnClickListener, IRegisterView, Adapter
     override fun OnRegisterError(message: String?) {
         runOnUiThread {
             Toast.makeText(this,message,Toast.LENGTH_LONG).show()
-
         }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        typeUserSelecc= typeUsers.getItem(position).toString()
+        val spinner=parent
+        if (spinner!!.id===R.id.spinnerCarrera){
+            carrerSelecc=carrers.getItem(position).toString()
+        }
+        else if(spinner!!.id===R.id.spinnerTipoUsuario){
+            typeUserSelecc= typeUsers.getItem(position).toString()
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("Not yet implemented")
+    }
+
+    override fun onSuccessCarrers(carrers: ArrayList<Carrer>) {
+        initSpinnerCarrer(carrers)
     }
 
 }

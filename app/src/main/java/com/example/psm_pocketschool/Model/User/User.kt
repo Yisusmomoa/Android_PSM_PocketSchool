@@ -1,4 +1,5 @@
 package com.example.psm_pocketschool.Model.User
+import com.example.psm_pocketschool.Model.Carrer.Carrer
 import com.google.gson.annotations.SerializedName
     /*private var  uid:String = "",
     private var name:String="",
@@ -22,12 +23,14 @@ class User {
      @SerializedName("carrer") var carrer:String=""
 
     constructor()
-    constructor(name: String, username: String, password: String, email: String, typeUser: String) {
+    //registro
+    constructor(name: String, username: String, password: String, email: String, typeUser: String, carrer:String) {
         this.name = name
         this.username = username
         this.password = password
         this.email = email
         this.typeUser = typeUser
+        this.carrer=carrer
     }
 
     constructor(
@@ -38,7 +41,8 @@ class User {
         email: String,
         createdAt: String,
         typeUser: String,
-        imgUser: String
+        imgUser: String,
+        carrer: String
     ) {
         this.uid = uid
         this.name = name
@@ -48,8 +52,10 @@ class User {
         this.createdAt = createdAt
         this.typeUser = typeUser
         this.imgUser = imgUser
+        this.carrer=carrer
     }
 
+    //login
     constructor(password: String, email: String) {
         this.password = password
         this.email = email

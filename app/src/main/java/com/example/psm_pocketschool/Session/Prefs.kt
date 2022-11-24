@@ -104,6 +104,7 @@ class Prefs(val context: Context) {
         val imgUser:String? =  storage.getString("imgUser", "")
         val name:String? =  storage.getString("name", "")
         val createdAt:String? =  storage.getString("createdAt", "")
+        val carrer:String? =  storage.getString("carrer", "")
 
         user.uid=uid!!
         user.username=username!!
@@ -113,6 +114,8 @@ class Prefs(val context: Context) {
         user.imgUser=imgUser!!
         user.name=name!!
         user.createdAt=createdAt!!
+        user.carrer=carrer!!
+
         //credential.strUser =  strUser!!
         //credential.strPassword =  strPassword!!
 
