@@ -1,60 +1,104 @@
 package com.example.psm_pocketschool.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.UiThread
+import com.example.psm_pocketschool.Controller.UpdateUser.UpdateUserConntroller
+import com.example.psm_pocketschool.MainActivity
+import com.example.psm_pocketschool.Model.User.User
 import com.example.psm_pocketschool.R
+import com.example.psm_pocketschool.Session.Prefs
+import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
+import com.example.psm_pocketschool.View.IUpdateUserView
+import com.example.psm_pocketschool.databinding.FragmentProfileBinding
+import com.squareup.picasso.Picasso
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Profile.newInstance] factory method to
- * create an instance of this fragment.
- */
-class Profile : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+//TODO -> editar información/texto, editar imagen
+class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
+    private var _binding:FragmentProfileBinding?=null
+    private val binding get()=_binding!!
+    private lateinit var user:User
+    private var updateUserConntroller:UpdateUserConntroller?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        user=prefs.getCredentials()
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+       // return inflater.inflate(R.layout.fragment_profile, container, false)
+        _binding=FragmentProfileBinding.inflate(inflater,container,false)
+        binding.txtCarrer.text=user.carrer
+        binding.editTextUsName.setText(user.username)
+        binding.editTextPersonName.setText(user.name)
+        Picasso.get().load(user.imgUser).into(binding.imgProfilePic)
+        updateUserConntroller= UpdateUserConntroller(this)
+
+        binding.btnSaveChange.setOnClickListener(this)
+        binding.changeImg.setOnClickListener(this)
+        binding.btnCerrarSesion.setOnClickListener(this)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Profile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Profile().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
+    }
+
+    override fun onClick(v: View?) {
+        val itemId= v?.id
+        when(itemId){
+            R.id.btnSaveChange->{
+                val userAux=User(binding.editTextPersonName.text.toString(),
+                    binding.editTextUsName.text.toString(),
+                    binding.editTextPassword.text.toString())
+                if (validaciones(userAux)){
+                    updateUserConntroller!!.onUpdate(userAux)
+                }
+                else{
+                    Toast.makeText(activity, "No puedes capturar campos vacios", Toast.LENGTH_SHORT).show()
                 }
             }
+            R.id.changeImg->{
+
+            }
+            R.id.btnCerrarSesion->{
+                prefs.wipe()
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
+
+    override fun OnUpdateSuccess(message: String?) {
+        requireActivity().runOnUiThread {
+            Toast.makeText(activity,message, Toast.LENGTH_LONG).show()
+        }
+        val fragmentB = Home()
+        activity?.getSupportFragmentManager()!!.beginTransaction()
+            .replace(R.id.frame_layout, fragmentB, "fragmnetId")
+            .commit();
+    }
+
+    override fun OnUpdateError(message: String?) {
+        Toast.makeText(activity,message, Toast.LENGTH_LONG).show()
+    }
+
+    fun validaciones(user:User):Boolean{
+        var resultado=true
+
+        if (user.name.isEmpty() || user.username.isEmpty()){
+            resultado=false
+        }
+
+        return resultado
+    }
+
+
 }

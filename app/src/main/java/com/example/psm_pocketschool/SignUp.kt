@@ -19,7 +19,8 @@ import com.example.psm_pocketschool.databinding.ActivitySignUpBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SignUp : AppCompatActivity(), View.OnClickListener, IRegisterView, AdapterView.OnItemSelectedListener, IGetCarrersView {
+class SignUp : AppCompatActivity(), View.OnClickListener,
+    IRegisterView, AdapterView.OnItemSelectedListener, IGetCarrersView {
     private lateinit var binding:ActivitySignUpBinding
 
     var registerController:RegisterController?=null

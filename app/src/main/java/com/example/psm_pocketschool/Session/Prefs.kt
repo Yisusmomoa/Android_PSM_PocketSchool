@@ -18,8 +18,10 @@ class Prefs(val context: Context) {
         editor.putString("typeUser",user.typeUser)
         editor.putString("name",user.name)
         editor.putString("createdAt",user.createdAt)
+        editor.putString("carrer", user.carrer)
         editor.commit()
     }
+
     /*val SHARED_UID="uid"
     val SHARED_NAME="name"
     val SHARED_USERNAME="username"
@@ -120,6 +122,20 @@ class Prefs(val context: Context) {
         //credential.strPassword =  strPassword!!
 
         return user
+    }
+
+    fun wipe(){
+        storage.edit().clear().apply()
+    }
+
+    fun getUid(): String? {
+        val uid:String? =  storage.getString("uid", "")
+        return uid
+    }
+
+    fun getPassword():String?{
+        val password:String?=storage.getString("password", "")
+        return password
     }
 
 }

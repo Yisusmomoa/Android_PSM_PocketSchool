@@ -23,6 +23,7 @@ class User {
      @SerializedName("carrer") var carrer:String=""
 
     constructor()
+
     //registro
     constructor(name: String, username: String, password: String, email: String, typeUser: String, carrer:String) {
         this.name = name
@@ -33,16 +34,11 @@ class User {
         this.carrer=carrer
     }
 
+    //sesion
     constructor(
-        uid: String,
-        name: String,
-        username: String,
-        password: String,
-        email: String,
-        createdAt: String,
-        typeUser: String,
-        imgUser: String,
-        carrer: String
+        uid: String, name: String, username: String,
+        password: String, email: String, createdAt: String,
+        typeUser: String, imgUser: String, carrer: String
     ) {
         this.uid = uid
         this.name = name
@@ -59,6 +55,13 @@ class User {
     constructor(password: String, email: String) {
         this.password = password
         this.email = email
+    }
+
+    //update
+    constructor(name: String, username: String, password: String) {
+        this.name = name
+        this.username = username
+        this.password = password
     }
 
 

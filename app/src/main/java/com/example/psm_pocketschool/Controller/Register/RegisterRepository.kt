@@ -21,6 +21,7 @@ class RegisterRepository {
         jsonObject.put("password", user.password)
         jsonObject.put("email", user.email)
         jsonObject.put("typeUser", user.typeUser)
+        jsonObject.put("carrer", user.carrer)
 
         val jsonObjectString = jsonObject.toString()
         // Create RequestBody ( We're not using any converter, like GsonConverter, MoshiConverter e.t.c, that's why we use RequestBody )

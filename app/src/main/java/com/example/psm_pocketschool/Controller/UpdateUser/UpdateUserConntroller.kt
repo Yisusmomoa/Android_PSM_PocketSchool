@@ -1,39 +1,39 @@
-package com.example.psm_pocketschool.Controller.Login
+package com.example.psm_pocketschool.Controller.UpdateUser
 
-import android.util.Log
-import com.example.psm_pocketschool.Controller.Register.RegisterRepository
 import com.example.psm_pocketschool.Model.User.User
 import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
-import com.example.psm_pocketschool.View.ILoginView
-import com.example.psm_pocketschool.View.IRegisterView
+import com.example.psm_pocketschool.View.IUpdateUserView
 import com.example.psm_pocketschool.core.RetrofitHelper
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonParser
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
-class LoginController(
-    private val loginView: ILoginView ):ILoginController {
-
-    private val repository=LoginRepository()
+class UpdateUserConntroller(
+    private val iUpdateUserView:IUpdateUserView
+) :IUpdateUserController{
     private var retrofit= RetrofitHelper.getRetrofit()
-
-    override fun onLogin(user: User) {
+    override fun onUpdate(user: User) {
+        if (user.password.isEmpty()){
+            user.password= prefs.getPassword().toString()
+        }
         val jsonObject = JSONObject()
         jsonObject.put("password", user.password)
-        jsonObject.put("email", user.email)
+        jsonObject.put("username", user.username)
+        jsonObject.put("name", user.name)
+        //jsonObject.put("profilePhoto", user.imgUser)
+
         val jsonObjectString = jsonObject.toString()
         // Create RequestBody ( We're not using any converter, like GsonConverter, MoshiConverter e.t.c, that's why we use RequestBody )
         val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
+
         GlobalScope.launch {
-            val response=retrofit.create(ILoginApiClient::class.java).onLogin(requestBody)
-            if (response.isSuccessful) {
-                //val gson = GsonBuilder().setPrettyPrinting().create()
+            //val response=retrofit.create(ILoginApiClient::class.java).onLogin(requestBody)
+            val response=retrofit.create(IUpdateUserApiClient::class.java).onUpdateUser(requestBody,
+                prefs.getUid().toString()
+            )
+            if (response.isSuccessful){
                 val userAux = User()
                 userAux.uid=response.body()!!.result.uid
                 userAux.name=response.body()!!.result.name
@@ -46,39 +46,30 @@ class LoginController(
                 userAux.password=response.body()!!.result.password
                 prefs.saveCredentials(userAux)
 
-                loginView.OnLoginSuccess("Login exitoso")
-            } else {
-                Log.e("RETROFIT_ERROR", response.code().toString())
-                loginView.OnLoginError("Error en la contraseña/password")
-            }
-        }
-        /*CoroutineScope(Dispatchers.IO).launch {
-            val response=repository.onLogin(user)
-            if(response!=null){
-                Log.d("User", response.toString())
+                iUpdateUserView.OnUpdateSuccess("Update exitoso")
             }
             else{
-
+                iUpdateUserView.OnUpdateError("Update fallido")
             }
-        }*/
+
+        }
     }
 
 }
 
+
 /*
-* {
+*{
   "result": {
-    "_id": "635cce4b100b21eda01a8a3d",
-    "name": "Usuario 1",
-    "email": "user5@gmail.com",
-    "password": "54321",
-    "username": "user5",
-    "profilePhoto": "qwertyuio",
-    "typeUser": "Student",
-    "createdAt": "2022-10-29T06:55:07.316Z",
-    "updatedAt": "2022-10-30T20:35:53.535Z",
-    "__v": 0
+    "_id": "637ff0aa8e86dcf2d41500bb",
+    "name": "userkot1",
+    "email": "uskot1@gmail.com",
+    "password": "12345",
+    "username": "uskot1",
+    "profilePhoto": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    "typeUser": "Teacher",
+    "createdAt": "2022-11-24T22:31:07.170Z",
+    "updatedAt": "2022-11-25T22:43:25.579Z"
   }
 }
-*
 * */
