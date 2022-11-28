@@ -18,6 +18,7 @@ class UpdateUserConntroller(
         if (user.password.isEmpty()){
             user.password= prefs.getPassword().toString()
         }
+
         val jsonObject = JSONObject()
         jsonObject.put("password", user.password)
         jsonObject.put("username", user.username)

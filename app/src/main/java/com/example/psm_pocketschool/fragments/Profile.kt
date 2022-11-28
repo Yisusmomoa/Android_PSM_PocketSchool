@@ -1,7 +1,10 @@
 package com.example.psm_pocketschool.fragments
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +27,8 @@ class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
     private val binding get()=_binding!!
     private lateinit var user:User
     private var updateUserConntroller:UpdateUserConntroller?=null
+    private val pickImage = 100
+    private var imageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +71,8 @@ class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
                 }
             }
             R.id.changeImg->{
-
+                val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+                startActivityForResult(gallery, pickImage)
             }
             R.id.btnCerrarSesion->{
                 prefs.wipe()
@@ -87,7 +93,9 @@ class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
     }
 
     override fun OnUpdateError(message: String?) {
-        Toast.makeText(activity,message, Toast.LENGTH_LONG).show()
+        requireActivity().runOnUiThread {
+            Toast.makeText(activity,message, Toast.LENGTH_LONG).show()
+        }
     }
 
     fun validaciones(user:User):Boolean{
@@ -96,8 +104,15 @@ class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
         if (user.name.isEmpty() || user.username.isEmpty()){
             resultado=false
         }
-
         return resultado
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == pickImage) {
+            imageUri = data?.data
+            binding.imgProfilePic.setImageURI(imageUri)
+        }
     }
 
 
