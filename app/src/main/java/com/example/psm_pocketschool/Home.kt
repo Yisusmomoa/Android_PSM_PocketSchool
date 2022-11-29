@@ -39,6 +39,7 @@ class Home : AppCompatActivity() {
                     replaceFragment(MisTareas())
                 }
                 R.id.misgrupos->{
+
                     replaceFragment(Groups())
                 }
                 else->{

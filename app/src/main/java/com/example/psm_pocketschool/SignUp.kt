@@ -83,6 +83,7 @@ class SignUp : AppCompatActivity(), View.OnClickListener,
         binding.spinnerTipoUsuario.onItemSelectedListener=this
         binding.spinnerTipoUsuario.adapter=typeUsers
     }
+
     fun initSpinnerCarrer(listCarrers: ArrayList<Carrer>){
         carrers=ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item)
         var listNameCarrers= arrayListOf<String>()

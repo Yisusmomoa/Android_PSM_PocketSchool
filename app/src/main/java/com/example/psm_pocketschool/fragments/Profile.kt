@@ -21,12 +21,15 @@ import com.example.psm_pocketschool.View.IUpdateUserView
 import com.example.psm_pocketschool.databinding.FragmentProfileBinding
 import com.squareup.picasso.Picasso
 
-//TODO -> editar información/texto, editar imagen
+//TODO -> editar imagen
 class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
     private var _binding:FragmentProfileBinding?=null
     private val binding get()=_binding!!
+
     private lateinit var user:User
+
     private var updateUserConntroller:UpdateUserConntroller?=null
+
     private val pickImage = 100
     private var imageUri: Uri? = null
 

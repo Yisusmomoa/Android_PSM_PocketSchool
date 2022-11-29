@@ -51,7 +51,7 @@
         app:layout_constraintVertical_bias="0.125" />
 
     <Button
-        android:id="@+id/btnSignUp"
+        android:id="@+id/btnCreateGgroup"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
