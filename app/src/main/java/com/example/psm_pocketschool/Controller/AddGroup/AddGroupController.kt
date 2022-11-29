@@ -20,7 +20,7 @@ class AddGroupController(
             grupo.teacher!!.uid, grupo.listHomeworks )
 
         GlobalScope.launch {
-            val idGrupo=addGroupRepository.addGroup(addGrupo)
+            val idGrupo=addGroupRepository.addGroup(grupo)
             var error:Boolean=true
             if (idGrupo.isNotBlank()){
                 students.forEach {
@@ -29,9 +29,9 @@ class AddGroupController(
                     }
                 }
                 //error?iAddGroupView.OnAddGroupSuccess("Grupo añadido con exito"):iAdd
-                if(error)iAddGroupView.OnAddGroupSuccess("Grupo añadido con exito") else iAddGroupView.OnAddGroupError("Intente, más tarde")
+                if(error)iAddGroupView.OnAddGroupSuccess("Grupo añadido con exito") else iAddGroupView.OnAddGroupError("Error, Intente, más tarde")
             }
-
+            iAddGroupView.OnAddGroupError("Error, Intente, más tarde")
         }
 
     }
