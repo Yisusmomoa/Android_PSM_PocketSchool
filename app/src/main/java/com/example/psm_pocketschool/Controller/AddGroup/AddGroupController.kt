@@ -13,14 +13,14 @@ class AddGroupController(
 ) :IAddGroupController{
     private val addGroupRepository=AddGroupRepository()
 
-    override fun addGroup(grupo: Grupo, students: List<User>) {
+    override fun addGroup(grupo: AddGrupo, students: List<User>) {
         grupo.listStudents= listOf()
         grupo.listHomeworks= listOf()
-        val addGrupo=AddGrupo(grupo.nameGroup,grupo.listStudents,
-            grupo.teacher!!.uid, grupo.listHomeworks )
+        /*val addGrupo=AddGrupo(grupo.nameGroup,grupo.listStudents,
+            grupo.teacher, grupo.listHomeworks )*/
 
         GlobalScope.launch {
-            val idGrupo=addGroupRepository.addGroup(addGrupo)
+            val idGrupo=addGroupRepository.addGroup(grupo)
             var error:Boolean=true
             if (idGrupo.isNotBlank()){
                 students.forEach {
@@ -31,10 +31,25 @@ class AddGroupController(
                 //error?iAddGroupView.OnAddGroupSuccess("Grupo añadido con exito"):iAdd
                 if(error)iAddGroupView.OnAddGroupSuccess("Grupo añadido con exito") else iAddGroupView.OnAddGroupError("Intente, más tarde")
             }
-
+            iAddGroupView.OnAddGroupError("Error, Intente, más tarde")
         }
 
     }
 
 
 }
+
+
+
+/*
+* {
+  "_id": "638686cf1930f3fa51a17788",
+  "nameGroup": "Grupo 3",
+  "listStudents": [],
+  "teacher": "635ede1ad3b1fff391e1a186",
+  "listHomeworks": [],
+  "createdAt": "2022-11-29T22:25:19.251Z",
+  "updatedAt": "2022-11-29T22:25:19.251Z"
+}
+*
+* */

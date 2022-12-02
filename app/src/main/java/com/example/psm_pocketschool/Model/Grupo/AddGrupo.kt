@@ -23,4 +23,9 @@ class AddGrupo {
         this.listHomeworks = listHomeworks
     }
 
+    constructor(nameGroup: String, teacher: String) {
+        this.nameGroup = nameGroup
+        this.teacher = teacher
+    }
+
 }

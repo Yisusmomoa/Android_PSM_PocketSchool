@@ -10,5 +10,5 @@ import retrofit2.http.Path
 
 interface IUpdateUserApiClient {
     @PUT("users/{idUser}")
-    suspend fun onUpdateUser(@Body requestBody: RequestBody, @Path("idUser") userId:String) : Response<UserResult>
+    suspend fun onUpdateUser(@Body RequestBody: RequestBody, @Path("idUser") userId:String) : Response<UserResult>
 }

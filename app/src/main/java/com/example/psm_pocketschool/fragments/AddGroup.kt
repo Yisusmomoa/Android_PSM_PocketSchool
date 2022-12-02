@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.example.psm_pocketschool.Controller.AddGroup.AddGroupController
 import com.example.psm_pocketschool.Controller.GetStudents.GetStudentsController
 import com.example.psm_pocketschool.Model.Carrer.Carrer
+import com.example.psm_pocketschool.Model.Grupo.AddGrupo
 import com.example.psm_pocketschool.Model.Grupo.Grupo
 import com.example.psm_pocketschool.Model.User.User
 import com.example.psm_pocketschool.R
@@ -22,14 +23,15 @@ import com.example.psm_pocketschool.View.IGetStudentsView
 import com.example.psm_pocketschool.databinding.FragmentAddGroupBinding
 import com.example.psm_pocketschool.databinding.FragmentProfileBinding
 
-class AddGroup : Fragment(), AdapterView.OnItemClickListener,IGetStudentsView, View.OnClickListener, IAddGroupView {
+class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, View.OnClickListener, IAddGroupView {
 
-    //TODO getStudents,
+    //TODO
     private var _binding: FragmentAddGroupBinding?=null
     private val binding get()=_binding!!
 
     private var getStudentsController:GetStudentsController?=null
     private var addGroupController:AddGroupController?=null
+
     //private lateinit var users: ArrayAdapter<String>
     private var arrayListUsers:ArrayList<User> = ArrayList()
     private var listOfStudents= arrayListOf<User>()
@@ -116,7 +118,8 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener,IGetStudentsView, V
             R.id.btnCreateGgroup->{
                 if (binding.editTextGroupName.text.isNotEmpty() || binding.editTextGroupName.text.isNotEmpty()){
                     teacher= UserApplication.prefs.getCredentials()
-                    val grupoAux=Grupo(binding.editTextGroupName.text.toString(),teacher )
+                    //val grupoAux=Grupo(binding.editTextGroupName.text.toString(),teacher.uid )
+                    val grupoAux=AddGrupo(binding.editTextGroupName.text.toString(),teacher.uid)
                     addGroupController!!.addGroup(grupoAux, listOfStudents)
                 }
                 else{
@@ -131,6 +134,7 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener,IGetStudentsView, V
         requireActivity().runOnUiThread {
             Toast.makeText(activity,message, Toast.LENGTH_LONG).show()
         }
+
         val fragmentB = Home()
         activity?.getSupportFragmentManager()!!.beginTransaction()
             .replace(R.id.frame_layout, fragmentB, "fragmnetId")

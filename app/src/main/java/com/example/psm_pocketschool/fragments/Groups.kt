@@ -9,8 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.psm_pocketschool.Adapters.AdapterGroupsFragment
 import com.example.psm_pocketschool.Adapters.AdapterHomeFragment
+import com.example.psm_pocketschool.Controller.GetGroupsByUser.GetGroupsByUserController
+import com.example.psm_pocketschool.Model.Grupo.Grupo
 import com.example.psm_pocketschool.News
 import com.example.psm_pocketschool.R
+import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
+import com.example.psm_pocketschool.View.IGetGroupsByUserView
+import com.example.psm_pocketschool.databinding.FragmentAddGroupBinding
+import com.example.psm_pocketschool.databinding.FragmentGroupsBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Groups.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Groups : Fragment() {
+class Groups : Fragment(), IGetGroupsByUserView, View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -30,13 +36,19 @@ class Groups : Fragment() {
     private lateinit var adapter: AdapterGroupsFragment
     private lateinit var recyclerView: RecyclerView
     private lateinit var newsArrayList:ArrayList<News>
+    private lateinit var groupsList:List<Grupo>
+
+    private var _binding: FragmentGroupsBinding?=null
+    private val binding get()=_binding!!
+
+    private var getGroupsByUserController:GetGroupsByUserController?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        getGroupsByUserController= GetGroupsByUserController(this)
+
+        var user=prefs.getCredentials()
+        getGroupsByUserController!!.onGetGroups(user)
     }
 
     override fun onCreateView(
@@ -44,23 +56,34 @@ class Groups : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_groups, container, false)
+        //return inflater.inflate(R.layout.fragment_groups, container, false)
+
+        _binding=FragmentGroupsBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val addGroup: View = view.findViewById(R.id.addGroup)
-        addGroup.setOnClickListener {
+        //val addGroup: View = view.findViewById(R.id.addGroup)
+        binding.addGroup.setOnClickListener {
             val transaction = activity?.supportFragmentManager?.beginTransaction()
             transaction?.replace(R.id.frame_layout, AddGroup())
             transaction?.disallowAddToBackStack()
             transaction?.commit()
         }
+
         dataInitialize()
         val layoutManager=LinearLayoutManager(context)
         recyclerView=view.findViewById(R.id.rvGrupos)
         recyclerView.layoutManager=layoutManager
         recyclerView.setHasFixedSize(true)
+        //adapter=AdapterGroupsFragment(newsArrayList)
         adapter=AdapterGroupsFragment(newsArrayList)
         recyclerView.adapter=adapter
     }
@@ -84,6 +107,7 @@ class Groups : Fragment() {
                 }
             }
     }
+
     private fun dataInitialize(){
         newsArrayList= arrayListOf<News>()
         for (i in 1..10){
@@ -91,5 +115,13 @@ class Groups : Fragment() {
             newsArrayList.add(new)
 
         }
+    }
+
+    override fun onSuccessGroups(grupos: List<Grupo>) {
+        groupsList=grupos
+    }
+
+    override fun onClick(v: View?) {
+        TODO("Not yet implemented")
     }
 }

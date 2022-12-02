@@ -13,7 +13,7 @@ import com.example.psm_pocketschool.fragments.SubGroup
 
 class AdapterGroupsFragment(private val List: ArrayList<News>):
     RecyclerView.Adapter<AdapterGroupsFragment.MyViewHolder>() {
-    class MyViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
+    inner class MyViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
         val txtNombreGrupo:TextView=itemView.findViewById(R.id.txtNombreGrupo)
 
     }
@@ -32,7 +32,7 @@ class AdapterGroupsFragment(private val List: ArrayList<News>):
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem=List[position]
-        holder.txtNombreGrupo.text=currentItem.title
+        //holder.txtNombreGrupo.text=currentItem.title
     }
 
     override fun getItemCount(): Int {
