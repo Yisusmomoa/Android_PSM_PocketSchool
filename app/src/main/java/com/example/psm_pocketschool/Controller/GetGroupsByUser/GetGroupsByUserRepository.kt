@@ -1,5 +1,7 @@
 package com.example.psm_pocketschool.Controller.GetGroupsByUser
 
+import android.util.Log
+import com.example.psm_pocketschool.Controller.GetUserById.GetUserByIdRepository
 import com.example.psm_pocketschool.Model.Grupo.Grupo
 import com.example.psm_pocketschool.core.RetrofitHelper
 import retrofit2.create
@@ -7,14 +9,22 @@ import retrofit2.create
 class GetGroupsByUserRepository {
     suspend fun getGroupsByUser(uid:String):List<Grupo>?{
         val result=RetrofitHelper.getRetrofit().create(IGetGroupsApiClient::class.java).getGroupsById(uid)
+        val getUserByIdRepository=GetUserByIdRepository()
         //TODO mapear de un grupo a otro, grupo donde teacher, liststudents, homework son strings a objetos
         if (result.isSuccessful){
             val bodyList:List<Grupo>?=result.body()
             var listGroups:Grupo
             if (bodyList != null) {
                 bodyList.forEach {
+                    var teacher=getUserByIdRepository.getUserById(it.teacher)
+                    it.teacherStruct=teacher
+                    it.listStudents?.forEach { idus->
+                        var studentAux=getUserByIdRepository.getUserById(idus)
+                        it.listStudentsStruct?.add(studentAux!!)
+                    }
                     //primero traer el teacher
                 }
+                Log.d("Grupo: ",bodyList.toString())
                 return bodyList
             }
 

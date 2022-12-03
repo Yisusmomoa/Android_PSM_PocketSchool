@@ -53,8 +53,6 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
         savedInstanceState: Bundle?
     ): View? {
 
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_add_group, container, false)
         _binding=FragmentAddGroupBinding.inflate(inflater, container, false)
         binding.btnCreateGgroup.setOnClickListener(this)
 
@@ -68,11 +66,6 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //val listView:ListView=view.findViewById(R.id.listStudentsAdd)
-        //listOfItem= setMultipleListView()
-
-        //val arrayAdapter:ArrayAdapter<String> =ArrayAdapter(view.context, android.R.layout.simple_list_item_multiple_choice, listOfItem)
 
     }
 
@@ -92,9 +85,6 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
         Log.d("user", us.toString())
         Log.d("listUsers", listOfStudents.toString())
 
-        /*if (view != null) {
-            Toast.makeText(view.context, "Clicked by: $options", Toast.LENGTH_SHORT).show()
-        }*/
     }
 
     override fun OnSuccessUsers(users: List<User>) {

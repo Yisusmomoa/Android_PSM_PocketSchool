@@ -36,7 +36,7 @@ class Groups : Fragment(), IGetGroupsByUserView, View.OnClickListener {
     private lateinit var adapter: AdapterGroupsFragment
     private lateinit var recyclerView: RecyclerView
     private lateinit var newsArrayList:ArrayList<News>
-    private lateinit var groupsList:List<Grupo>
+    private var groupsList:List<Grupo> = listOf()
 
     private var _binding: FragmentGroupsBinding?=null
     private val binding get()=_binding!!
@@ -46,9 +46,9 @@ class Groups : Fragment(), IGetGroupsByUserView, View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getGroupsByUserController= GetGroupsByUserController(this)
-
         var user=prefs.getCredentials()
         getGroupsByUserController!!.onGetGroups(user)
+
     }
 
     override fun onCreateView(
@@ -59,6 +59,12 @@ class Groups : Fragment(), IGetGroupsByUserView, View.OnClickListener {
         //return inflater.inflate(R.layout.fragment_groups, container, false)
 
         _binding=FragmentGroupsBinding.inflate(inflater, container, false)
+        binding.addGroup.setOnClickListener {
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.replace(R.id.frame_layout, AddGroup())
+            transaction?.disallowAddToBackStack()
+            transaction?.commit()
+        }
 
         return binding.root
     }
@@ -78,14 +84,8 @@ class Groups : Fragment(), IGetGroupsByUserView, View.OnClickListener {
             transaction?.commit()
         }
 
-        dataInitialize()
-        val layoutManager=LinearLayoutManager(context)
-        recyclerView=view.findViewById(R.id.rvGrupos)
-        recyclerView.layoutManager=layoutManager
-        recyclerView.setHasFixedSize(true)
-        //adapter=AdapterGroupsFragment(newsArrayList)
-        adapter=AdapterGroupsFragment(newsArrayList)
-        recyclerView.adapter=adapter
+
+
     }
 
     companion object {
@@ -119,6 +119,18 @@ class Groups : Fragment(), IGetGroupsByUserView, View.OnClickListener {
 
     override fun onSuccessGroups(grupos: List<Grupo>) {
         groupsList=grupos
+
+        requireActivity().runOnUiThread {
+            val layoutManager=LinearLayoutManager(context)
+            //recyclerView=view.findViewById(R.id.rvGrupos)
+            recyclerView=binding.rvGrupos
+            recyclerView.layoutManager=layoutManager
+            recyclerView.setHasFixedSize(true)
+            //adapter=AdapterGroupsFragment(newsArrayList)
+            adapter=AdapterGroupsFragment(groupsList)
+            recyclerView.adapter=adapter
+
+        }
     }
 
     override fun onClick(v: View?) {

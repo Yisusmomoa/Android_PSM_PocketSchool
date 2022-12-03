@@ -1,19 +1,21 @@
 package com.example.psm_pocketschool.Adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.psm_pocketschool.Model.Grupo.Grupo
 import com.example.psm_pocketschool.News
 import com.example.psm_pocketschool.R
 import com.example.psm_pocketschool.fragments.AddGroup
 import com.example.psm_pocketschool.fragments.SubGroup
 
-class AdapterGroupsFragment(private val List: ArrayList<News>):
+class AdapterGroupsFragment(private val List: List<Grupo>):
     RecyclerView.Adapter<AdapterGroupsFragment.MyViewHolder>() {
-    inner class MyViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
+     class MyViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
         val txtNombreGrupo:TextView=itemView.findViewById(R.id.txtNombreGrupo)
 
     }
@@ -32,7 +34,9 @@ class AdapterGroupsFragment(private val List: ArrayList<News>):
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem=List[position]
-        //holder.txtNombreGrupo.text=currentItem.title
+        holder.txtNombreGrupo.text=currentItem.nameGroup
+        Log.d("NameGroup", currentItem.nameGroup)
+
     }
 
     override fun getItemCount(): Int {

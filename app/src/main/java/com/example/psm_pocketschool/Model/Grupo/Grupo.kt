@@ -7,22 +7,22 @@ import com.google.gson.annotations.SerializedName
 class Grupo {
     @SerializedName("_id") var uid:String = ""
     @SerializedName("nameGroup") var nameGroup:String = ""
-    @SerializedName("listStudents") var listStudents:List<String>?=null
-    var listStudentsStruct:List<User>?=null
+    @SerializedName("listStudents") var listStudents:ArrayList <String>?=null
+    var listStudentsStruct:ArrayList <User>?= ArrayList()
     @SerializedName("teacher") var teacher:String=""
     var teacherStruct:User ?= null
-    @SerializedName("listHomeworks") var listHomeworks:List<String>?=null
-    var listHomeworksStruct:List<Tarea>?=null
+    @SerializedName("listHomeworks") var listHomeworks:ArrayList <String>?=null
+    var listHomeworksStruct:ArrayList <Tarea>?=ArrayList()
     @SerializedName("createdAt") var createdAt:String = ""
     constructor()
 
     constructor(
         uid: String,
         nameGroup: String,
-        listStudentsStruct: List<User>?,
+        listStudentsStruct: ArrayList <User>?,
         teacher: String,
         teacherStruct: User?,
-        listHomeworksStruct: List<Tarea>?,
+        listHomeworksStruct: ArrayList <Tarea>?,
         createdAt: String
     ) {
         this.uid = uid
@@ -38,9 +38,9 @@ class Grupo {
 
     constructor(
         nameGroup: String,
-        listStudentsStruct: List<User>?,
+        listStudentsStruct: ArrayList <User>?,
         teacher: String,
-        listHomeworksStruct: List<Tarea>?
+        listHomeworksStruct: ArrayList <Tarea>?
     ) {
         this.nameGroup = nameGroup
         this.listStudentsStruct = listStudentsStruct
@@ -56,9 +56,9 @@ class Grupo {
     constructor(
         uid: String,
         nameGroup: String,
-        listStudents: List<String>?,
+        listStudents: ArrayList <String>?,
         teacher: String,
-        listHomeworks: List<String>?,
+        listHomeworks: ArrayList <String>?,
         createdAt: String
     ) {
         this.uid = uid
