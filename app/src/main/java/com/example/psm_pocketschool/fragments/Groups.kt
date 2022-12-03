@@ -36,6 +36,7 @@ class Groups : Fragment(), IGetGroupsByUserView, View.OnClickListener {
     private lateinit var adapter: AdapterGroupsFragment
     private lateinit var recyclerView: RecyclerView
     private lateinit var newsArrayList:ArrayList<News>
+
     private var groupsList:List<Grupo> = listOf()
 
     private var _binding: FragmentGroupsBinding?=null
