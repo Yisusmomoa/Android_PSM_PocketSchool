@@ -130,6 +130,7 @@ class Groups : Fragment(), IGetGroupsByUserView, View.OnClickListener {
             adapter=AdapterGroupsFragment(groupsList)
             recyclerView.adapter=adapter
 
+
         }
     }
 

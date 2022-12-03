@@ -1,6 +1,7 @@
 package com.example.psm_pocketschool.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,8 @@ class SubGroup : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val args=this.arguments
+        Log.d("Args", args!!.getString("idGroup")!!)
         return inflater.inflate(R.layout.fragment_sub_group, container, false)
     }
 
