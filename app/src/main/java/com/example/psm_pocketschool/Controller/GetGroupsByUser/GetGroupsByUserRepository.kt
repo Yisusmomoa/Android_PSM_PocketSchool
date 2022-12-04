@@ -10,7 +10,7 @@ class GetGroupsByUserRepository {
     suspend fun getGroupsByUser(uid:String):List<Grupo>?{
         val result=RetrofitHelper.getRetrofit().create(IGetGroupsApiClient::class.java).getGroupsById(uid)
         val getUserByIdRepository=GetUserByIdRepository()
-        //TODO mapear de un grupo a otro, grupo donde teacher, liststudents, homework son strings a objetos
+        //TODO mapear homework son strings a objetos
         if (result.isSuccessful){
             val bodyList:List<Grupo>?=result.body()
             var listGroups:Grupo
