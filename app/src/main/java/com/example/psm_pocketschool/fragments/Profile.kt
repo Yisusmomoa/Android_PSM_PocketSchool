@@ -116,6 +116,7 @@ class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
             imageUri = data?.data
             binding.imgProfilePic.setImageURI(imageUri)
         }
+
     }
 
 
