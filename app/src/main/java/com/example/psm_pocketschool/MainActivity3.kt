@@ -6,23 +6,27 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
-import android.text.Html
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import androidx.activity.result.ActivityResultCallback
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.psm_pocketschool.Model.Pdf.PdfClass
 import com.example.psm_pocketschool.databinding.ActivityMain3Binding
-import java.io.File
 import java.io.IOException
 
 
-class MainActivity3 : AppCompatActivity(), View.OnClickListener {
+class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemClickListener {
+    //TODO: Mostrar pdfs en un listview, remove pdf/item de listview
     private lateinit var binding:ActivityMain3Binding
     var resultLauncher: ActivityResultLauncher<Intent>? = null
     var uri:Uri?=null
+    private var listPdfs:ArrayList<PdfClass> = ArrayList()
+    private var listPdfsName:ArrayList<String> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMain3Binding.inflate(layoutInflater)
@@ -57,20 +61,8 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener {
         pdfIntent.type = "application/pdf"
         pdfIntent.addCategory(Intent.CATEGORY_OPENABLE)
         startActivityForResult(pdfIntent, 0)
-
-        //val intent=Intent()
-        //intent.setType("pdf/*")
-        //intent.setAction(Intent.ACTION_GET_CONTENT)
-        //startActivityForResult(Intent.createChooser(intent, "Select PDF"), 0)
-
-        /*val pdfIntent = Intent(Intent.ACTION_GET_CONTENT)
-        pdfIntent.type = "application/pdf"
-        pdfIntent.addCategory(Intent.CATEGORY_OPENABLE)
-        startActivityForResult(pdfIntent, 0)*/
     }
-
     private fun getBase64ForUriAndPossiblyCrash(uri: Uri): String? {
-
         try {
             val bytes = contentResolver.openInputStream(uri)?.readBytes()
             return Base64.encodeToString(bytes, Base64.DEFAULT)
@@ -79,67 +71,58 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener {
         }
         return null
     }
-
     @SuppressLint("Range")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode== RESULT_OK){
+        if (resultCode== RESULT_OK && requestCode==0){
             var pdfName: String? = null
-            val uriString: String = uri.toString()
             uri=data!!.data
-            Log.d("Pdf", uri.toString())
+            val uriString: String = uri.toString()
+
             if (uriString.startsWith("content://")) {
                 var myCursor: Cursor? = null
                 try {
                     myCursor = applicationContext!!.contentResolver.query(uri!!, null, null, null, null)
                     if (myCursor != null && myCursor.moveToFirst()){
                         pdfName = myCursor.getString(myCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                        Log.d("Pdf", pdfName)
+                        //Log.d("Pdf", pdfName)
                     }
                 }
                 finally {
                     myCursor?.close()
                 }
 
-                val base64pdf: String? = getBase64ForUriAndPossiblyCrash(uri!!)
-                Log.d("Pdf", base64pdf.toString())
+                val base64pdfString: String? = getBase64ForUriAndPossiblyCrash(uri!!)
+                //Log.d("Pdf", base64pdfString.toString())
+                val pdfClass=PdfClass(pdfName!!, base64pdfString!!)
                 //convertToBase64()
+                addPdfList(pdfClass)
 
             }
         }
 
-        // For loading PDF
-        /*
-        when (requestCode) {
-            0 -> if (resultCode == RESULT_OK) {
-
-                var pdfUri = data?.data!!
-                val uri: Uri = data?.data!!
-                val uriString: String = uri.toString()
-                var pdfName: String? = null
-                if (uriString.startsWith("content://")) {
-                    var myCursor: Cursor? = null
-                    try {
-                        // Setting the PDF to the TextView
-                        myCursor = applicationContext!!.contentResolver.query(uri, null, null, null, null)
-                        if (myCursor != null && myCursor.moveToFirst()) {
-                            pdfName = myCursor.getString(myCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                            //pdfTextView.text = pdfName
-
-                            Log.d("Pdf", pdfName)
-                            Log.d("Pdf", pdfUri.toString())
-                            var filePdf=File(pdfUri.toString())
-                            val base64pdf=convertToBase64(filePdf)
-                            Log.d("Pdf", base64pdf)
-                            //convertToBase64()
-                        }
-                    } finally {
-                        myCursor?.close()
-                    }
-                }
-            }
-        }
-
-         */
     }
+
+    private fun addPdfList(pdfAux: PdfClass){
+        listPdfs.add(pdfAux)
+        listPdfsName.add(pdfAux.pdfName)
+        listPdfsView()
+        Log.d("listPdfsName", listPdfsName.toString())
+        Log.d("listPdfs", listPdfs.toString())
+
+    }
+
+    private fun listPdfsView(){
+        runOnUiThread {
+            val arrayAdapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, listPdfsName)
+            binding.listPDFSPublic.choiceMode= ListView.CHOICE_MODE_MULTIPLE
+            binding.listPDFSPublic.adapter=arrayAdapter
+            binding.listPDFSPublic.onItemClickListener=this
+        }
+    }
+
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        TODO("Not yet implemented")
+    }
+
 }

@@ -61,6 +61,7 @@ class MainActivity2 : AppCompatActivity(), IGetGroupsByUserView, AdapterView.OnI
 
         runOnUiThread {
             val arrayAdapter: ArrayAdapter<String> = ArrayAdapter(this, R.layout.simple_list_item_multiple_choice, groupsList)
+            //val arrayAdapter: ArrayAdapter<String> = ArrayAdapter(this, R.layout.list, groupsList)
             binding.listGrupos.choiceMode= ListView.CHOICE_MODE_MULTIPLE
             binding.listGrupos.adapter=arrayAdapter
             binding.listGrupos.onItemClickListener=this
