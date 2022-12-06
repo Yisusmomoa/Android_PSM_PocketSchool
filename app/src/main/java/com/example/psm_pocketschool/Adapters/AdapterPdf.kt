@@ -41,9 +41,9 @@ class AdapterPdf (private val context: Activity, private val arrayList:ArrayList
         val btnRemovePDF:ImageButton=view.findViewById(R.id.btnRemovePDF)
 
         btnRemovePDF.setOnClickListener {
-            Log.d("listPdfs", "remove: $pdfList")
+            //Log.d("listPdfs", "remove: $pdfList")
             removeItem(position)
-            Log.d("listPdfs", "remove: $pdfList")
+            //Log.d("listPdfs", "remove: $pdfList")
             notifyDataSetChanged()
             mOnItemClickListener?.onItemClick(position)
         }

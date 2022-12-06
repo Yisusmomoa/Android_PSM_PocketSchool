@@ -67,7 +67,7 @@
                     tools:ignore="UnknownId"></ListView>
 
                 <Button
-                    android:id="@+id/btnSignUp"
+                    android:id="@+id/btnPublicHomework"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

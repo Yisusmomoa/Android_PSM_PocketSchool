@@ -43,7 +43,7 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
         Log.d("Tarea", listOfGrupos.toString())
 
         binding.txtAdjPdfs.setOnClickListener(this)
-
+        binding.btnPublicHomework.setOnClickListener(this)
 
         //setContentView(R.layout.activity_main3)
     }
@@ -53,6 +53,9 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
         when(itemId){
             R.id.txtAdjPdfs->{
                 selectPdf()
+            }
+            R.id.btnPublicHomework->{
+
             }
         }
     }
@@ -109,8 +112,8 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
         listPdfs.add(pdfAux)
         listPdfsName.add(pdfAux.pdfName)
         listPdfsView()
-        Log.d("listPdfsName", listPdfsName.toString())
-        Log.d("listPdfs", listPdfs.toString())
+        //Log.d("listPdfsName", listPdfsName.toString())
+        //Log.d("listPdfs", listPdfs.toString())
 
     }
 
