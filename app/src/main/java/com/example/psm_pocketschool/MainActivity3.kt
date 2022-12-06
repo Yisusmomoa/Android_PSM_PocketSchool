@@ -14,6 +14,8 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
+import com.example.psm_pocketschool.Adapters.AdapterPdf
+import com.example.psm_pocketschool.Adapters.OnItemClickListener
 import com.example.psm_pocketschool.Model.Pdf.PdfClass
 import com.example.psm_pocketschool.databinding.ActivityMain3Binding
 import java.io.IOException
@@ -26,7 +28,7 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
     var uri:Uri?=null
     private var listPdfs:ArrayList<PdfClass> = ArrayList()
     private var listPdfsName:ArrayList<String> = ArrayList()
-
+    lateinit var pdfAdapterPdf: AdapterPdf
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMain3Binding.inflate(layoutInflater)
@@ -114,12 +116,25 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
 
     private fun listPdfsView(){
         runOnUiThread {
-            val arrayAdapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, listPdfsName)
+            //val arrayAdapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, listPdfsName)
+            pdfAdapterPdf= AdapterPdf(this, listPdfs)
             binding.listPDFSPublic.choiceMode= ListView.CHOICE_MODE_MULTIPLE
-            binding.listPDFSPublic.adapter=arrayAdapter
+            //binding.listPDFSPublic.adapter=arrayAdapter
+            binding.listPDFSPublic.adapter=pdfAdapterPdf
+            pdfAdapterPdf.notifyDataSetChanged()
+
+            pdfAdapterPdf.mOnItemClickListener= object : OnItemClickListener {
+                override fun onItemClick(index: Int) {
+                    listPdfs.removeAt(index)
+                    listPdfsName.removeAt(index)
+
+                }
+            }
             binding.listPDFSPublic.onItemClickListener=this
+
         }
     }
+
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         TODO("Not yet implemented")

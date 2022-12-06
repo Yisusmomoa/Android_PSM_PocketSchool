@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.25" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/LogoPocketSchool_background.xml" value="0.21" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/LogoPocketSchool_foreground.xml" value="0.247" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/bg_custom.xml" value="0.2345" />
@@ -12,11 +13,14 @@
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.124" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.2595" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_attach_file_24.xml" value="0.2345" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_dehaze_24.xml" value="0.25" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.25" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2285" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_baseline_upload_24.xml" value="0.2345" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/logo_pocket_school_background.xml" value="0.124" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/logo_pocket_school_foreground.xml" value="0.124" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/quit_pdf.xml" value="0.25" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/drawable/search_icon_foreground.xml" value="0.227" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/activity_home.xml" value="0.2" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/activity_main.xml" value="0.264" />
@@ -44,6 +48,7 @@
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/item_groups3.xml" value="0.20778110303548525" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/item_grupo.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/item_student_multiple_choice.xml" value="0.176" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/list_pdf.xml" value="0.4" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/layout/spinner_background.xml" value="0.2076923076923077" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/menu/bottom_nav.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
@@ -52,6 +57,8 @@
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/menu/menu_sup_bar.xml" value="0.20778110303548525" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/mipmap-anydpi-v26/LogoPocketSchool.xml" value="0.124" />
         <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/mipmap-anydpi-v26/LogoPocketSchool_round.xml" value="0.124" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/mipmap-anydpi-v26/home_icon.xml" value="0.25" />
+        <entry key="..\:/Users/bjls2/AndroidStudioProjects/PSM_PocketSchool/app/src/main/res/mipmap-anydpi-v26/homework_icon_round.xml" value="0.25" />
       </map>
     </option>
   </component>
