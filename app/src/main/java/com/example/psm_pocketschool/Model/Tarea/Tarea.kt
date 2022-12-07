@@ -8,13 +8,13 @@ class Tarea {
     @SerializedName("_id") var uid:String = ""
     @SerializedName("title") var title:String = ""
     @SerializedName("description") var description:String = ""
-    @SerializedName("pdfsTarea") var pdfsTarea:List<String>?=null
+    @SerializedName("pdfsTarea") var pdfsTarea:List<String>?= listOf()
     @SerializedName("dateIni") var dateIni:String = ""
     @SerializedName("dateFin") var dateFin:String = ""
-    @SerializedName("tareasAlumnos") var tareasAlumnos:List<String>?=null
-    var tareasAlumnosStruct:List<User>?=null
+    @SerializedName("tareasAlumnos") var tareasAlumnos:List<String>?=listOf()
+    var tareasAlumnosStruct:List<User>?=listOf()
     @SerializedName("grupo") var grupo:String =""
-    var grupoStruct:Grupo ?= null
+    var grupoStruct:Grupo ?=null
 
     constructor()
 

@@ -20,15 +20,12 @@ class AdapterPdf (private val context: Activity, private val arrayList:ArrayList
     init {
         pdfList.addAll(arrayList)
     }
-
     override fun getCount(): Int {
         return pdfList.size
     }
-
     override fun getItem(position: Int): Any {
         return pdfList.get(position)
     }
-
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
@@ -36,10 +33,8 @@ class AdapterPdf (private val context: Activity, private val arrayList:ArrayList
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater:LayoutInflater=LayoutInflater.from(context)
         val view:View=inflater.inflate(R.layout.list_pdf,parent, false)
-
         val txtNamePdf:TextView=view.findViewById(R.id.txtNamePdf)
         val btnRemovePDF:ImageButton=view.findViewById(R.id.btnRemovePDF)
-
         btnRemovePDF.setOnClickListener {
             //Log.d("listPdfs", "remove: $pdfList")
             removeItem(position)

@@ -12,35 +12,52 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import com.example.psm_pocketschool.Adapters.AdapterPdf
 import com.example.psm_pocketschool.Adapters.OnItemClickListener
+import com.example.psm_pocketschool.Controller.AddHomework.AddHomeworkController
 import com.example.psm_pocketschool.Model.Pdf.PdfClass
+import com.example.psm_pocketschool.Model.Tarea.AddTarea
+import com.example.psm_pocketschool.Model.Tarea.Tarea
+import com.example.psm_pocketschool.View.IAddHomeworkView
 import com.example.psm_pocketschool.databinding.ActivityMain3Binding
+import com.example.psm_pocketschool.fragments.Home
 import java.io.IOException
+import java.io.Serializable
 
 
-class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemClickListener {
+class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnItemClickListener, IAddHomeworkView {
     //TODO: Mostrar pdfs en un listview, remove pdf/item de listview
     private lateinit var binding:ActivityMain3Binding
     var resultLauncher: ActivityResultLauncher<Intent>? = null
     var uri:Uri?=null
     private var listPdfs:ArrayList<PdfClass> = ArrayList()
     private var listPdfsName:ArrayList<String> = ArrayList()
+    private var listPdfs64:ArrayList<String> = ArrayList()
+    private var listAuxTareas:ArrayList<AddTarea> = ArrayList()
     lateinit var pdfAdapterPdf: AdapterPdf
+    var titleHomework:String=""
+    var descHomework:String=""
+    private var addHomeworkController:AddHomeworkController?=null
+
+    lateinit var listOfGrupos:ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMain3Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var titleHomework:String= intent.getStringExtra("titleHomework")!!
-        var descHomework:String= intent.getStringExtra("descHomework")!!
-        var listOfGrupos=intent.getSerializableExtra("listOfGrupos")
+        titleHomework= intent.getStringExtra("titleHomework")!!
+        descHomework= intent.getStringExtra("descHomework")!!
+        listOfGrupos= intent.getSerializableExtra("listOfGrupos") as ArrayList<String>
 
-        Log.d("Tarea", titleHomework)
+        /*Log.d("Tarea", titleHomework)
         Log.d("Tarea", descHomework)
         Log.d("Tarea", listOfGrupos.toString())
+         */
+
+        addHomeworkController=AddHomeworkController(this)
 
         binding.txtAdjPdfs.setOnClickListener(this)
         binding.btnPublicHomework.setOnClickListener(this)
@@ -55,6 +72,12 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
                 selectPdf()
             }
             R.id.btnPublicHomework->{
+                listOfGrupos.forEach { gpo->
+                    val auxTarea=AddTarea(titleHomework, descHomework, listPdfs64, gpo)
+                    listAuxTareas.add(auxTarea)
+                }
+                //Log.d("Tarea", listAuxTareas.toString())
+                addHomeworkController?.addHomework(listAuxTareas)
 
             }
         }
@@ -111,10 +134,10 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
     private fun addPdfList(pdfAux: PdfClass){
         listPdfs.add(pdfAux)
         listPdfsName.add(pdfAux.pdfName)
+        listPdfs64.add(pdfAux.pdfBase64String)
         listPdfsView()
         //Log.d("listPdfsName", listPdfsName.toString())
         //Log.d("listPdfs", listPdfs.toString())
-
     }
 
     private fun listPdfsView(){
@@ -141,6 +164,18 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         TODO("Not yet implemented")
+    }
+
+    override fun OnAddHomeworkSuccess(message: String?) {
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun OnAddHomeworkError(message: String?) {
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        }
     }
 
 }
