@@ -24,6 +24,8 @@ import com.example.psm_pocketschool.Model.Tarea.Tarea
 import com.example.psm_pocketschool.View.IAddHomeworkView
 import com.example.psm_pocketschool.databinding.ActivityMain3Binding
 import com.example.psm_pocketschool.fragments.Home
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.io.Serializable
 
@@ -153,6 +155,7 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
                 override fun onItemClick(index: Int) {
                     listPdfs.removeAt(index)
                     listPdfsName.removeAt(index)
+                    listPdfs64.removeAt(index)
 
                 }
             }
@@ -170,12 +173,18 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
         runOnUiThread {
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }
+        Thread.sleep(2000)
+            val intent=Intent(this, com.example.psm_pocketschool.Home::class.java)
+            startActivity(intent)
+
     }
 
     override fun OnAddHomeworkError(message: String?) {
         runOnUiThread {
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }
+        val intent=Intent(this, com.example.psm_pocketschool.Home::class.java)
+        startActivity(intent)
     }
 
 }

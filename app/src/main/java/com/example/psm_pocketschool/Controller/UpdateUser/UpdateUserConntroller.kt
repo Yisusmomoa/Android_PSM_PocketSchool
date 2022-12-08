@@ -4,6 +4,8 @@ import com.example.psm_pocketschool.Model.User.User
 import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
 import com.example.psm_pocketschool.View.IUpdateUserView
 import com.example.psm_pocketschool.core.RetrofitHelper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -14,6 +16,8 @@ class UpdateUserConntroller(
     private val iUpdateUserView:IUpdateUserView
 ) :IUpdateUserController{
     private var retrofit= RetrofitHelper.getRetrofit()
+    private var updateUserRepository=UpdateUserRepository()
+    private val myScope = CoroutineScope(Dispatchers.IO)
     override fun onUpdate(user: User) {
         if (user.password.isEmpty()){
             user.password= prefs.getPassword().toString()
@@ -55,6 +59,21 @@ class UpdateUserConntroller(
 
         }
     }
+
+    override fun onUpdateImg(imgBase64: String) {
+        val uid=prefs.getUid()
+        myScope.launch {
+            val user:User?=updateUserRepository.onUpdateImg(uid.toString(), imgBase64)
+            if (user!=null){
+                prefs.saveCredentials(user)
+                iUpdateUserView.onUpdateImgSuccess(true, "Imagen actualizada con exito")
+            }
+            else{
+                iUpdateUserView.onUpdateImgSuccess(false, "Error, intente más tarde")
+            }
+        }
+    }
+
 
 }
 

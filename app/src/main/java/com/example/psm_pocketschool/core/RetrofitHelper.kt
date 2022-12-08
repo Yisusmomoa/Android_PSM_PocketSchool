@@ -13,4 +13,6 @@ object RetrofitHelper {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    // .baseUrl("https://express-psm4.onrender.com/api/")//ruta fija de nuestros endpoints
 }

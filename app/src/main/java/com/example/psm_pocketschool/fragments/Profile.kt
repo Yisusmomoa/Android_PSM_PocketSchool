@@ -2,9 +2,11 @@ package com.example.psm_pocketschool.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +20,7 @@ import com.example.psm_pocketschool.R
 import com.example.psm_pocketschool.Session.Prefs
 import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
 import com.example.psm_pocketschool.View.IUpdateUserView
+import com.example.psm_pocketschool.core.ImageManager
 import com.example.psm_pocketschool.databinding.FragmentProfileBinding
 import com.squareup.picasso.Picasso
 
@@ -44,7 +47,15 @@ class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
         binding.txtCarrer.text=user.carrer
         binding.editTextUsName.setText(user.username)
         binding.editTextPersonName.setText(user.name)
-        Picasso.get().load(user.imgUser).into(binding.imgProfilePic)
+        if(user.imgUser.startsWith("https")){
+            Picasso.get().load(user.imgUser).into(binding.imgProfilePic)
+        }
+        else{
+            val imageBytes = Base64.decode(user.imgUser, Base64.DEFAULT)
+            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            //imageView.setImageBitmap(decodedImage)
+            binding.imgProfilePic.setImageBitmap(decodedImage)
+        }
         updateUserConntroller= UpdateUserConntroller(this)
 
         binding.btnSaveChange.setOnClickListener(this)
@@ -101,6 +112,21 @@ class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
         }
     }
 
+    override fun onUpdateImgSuccess(result: Boolean, message: String?) {
+        if (result){
+            requireActivity().runOnUiThread {
+                Toast.makeText(activity,message, Toast.LENGTH_LONG).show()
+                binding.imgProfilePic.setImageURI(imageUri)
+            }
+        }
+        else{
+            requireActivity().runOnUiThread {
+                Toast.makeText(activity,message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+
     fun validaciones(user:User):Boolean{
         var resultado=true
 
@@ -114,8 +140,17 @@ class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
-            binding.imgProfilePic.setImageURI(imageUri)
+            updateImg(imageUri)
+
         }
+
+    }
+
+    fun updateImg(image:Uri?){
+
+        val appContext = requireContext().applicationContext
+        val imgstring=ImageManager.base64_EncodeImage(appContext, image!!)
+        updateUserConntroller!!.onUpdateImg(imgstring)
 
     }
 
