@@ -10,5 +10,5 @@ import retrofit2.http.POST
 
 interface IAddHomeworkApiClient {
     @POST("homework/")
-    suspend fun addHomework(@Body tareaData: AddTarea): Response<Tarea>
+    suspend fun addHomework(@Body tareaData: AddTarea): Response<Grupo>
 }

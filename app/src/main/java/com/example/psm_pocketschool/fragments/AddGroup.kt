@@ -99,7 +99,6 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
             binding.listStudentsAdd.adapter=arrayAdapter
             binding.listStudentsAdd.onItemClickListener=this
         }
-
     }
 
     override fun onClick(v: View?) {
@@ -123,18 +122,16 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
     override fun OnAddGroupSuccess(message: String?) {
         requireActivity().runOnUiThread {
             Toast.makeText(activity,message, Toast.LENGTH_LONG).show()
+            val fragmentB = Home()
+            activity?.getSupportFragmentManager()!!.beginTransaction()
+                .replace(R.id.frame_layout, fragmentB, "fragmnetId")
+                .commit();
         }
 
-        val fragmentB = Home()
-        activity?.getSupportFragmentManager()!!.beginTransaction()
-            .replace(R.id.frame_layout, fragmentB, "fragmnetId")
-            .commit();
     }
 
     override fun OnAddGroupError(message: String?) {
-        requireActivity().runOnUiThread {
-            Toast.makeText(activity,message, Toast.LENGTH_LONG).show()
-        }
+
     }
 
 
