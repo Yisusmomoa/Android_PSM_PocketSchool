@@ -54,11 +54,6 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
         descHomework= intent.getStringExtra("descHomework")!!
         listOfGrupos= intent.getSerializableExtra("listOfGrupos") as ArrayList<String>
 
-        /*Log.d("Tarea", titleHomework)
-        Log.d("Tarea", descHomework)
-        Log.d("Tarea", listOfGrupos.toString())
-         */
-
         addHomeworkController=AddHomeworkController(this)
 
         binding.txtAdjPdfs.setOnClickListener(this)
@@ -92,6 +87,7 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
         pdfIntent.addCategory(Intent.CATEGORY_OPENABLE)
         startActivityForResult(pdfIntent, 0)
     }
+
     private fun getBase64ForUriAndPossiblyCrash(uri: Uri): String? {
         try {
             val bytes = contentResolver.openInputStream(uri)?.readBytes()
@@ -101,6 +97,7 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
         }
         return null
     }
+
     @SuppressLint("Range")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -156,9 +153,9 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
                     listPdfs.removeAt(index)
                     listPdfsName.removeAt(index)
                     listPdfs64.removeAt(index)
-
                 }
             }
+
             binding.listPDFSPublic.onItemClickListener=this
 
         }

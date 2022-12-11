@@ -66,7 +66,6 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 
     private fun setMultipleListView():ArrayList<String>{
