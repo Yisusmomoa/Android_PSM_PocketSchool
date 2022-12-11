@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.psm_pocketschool.Model.Tarea.Tarea
 import com.example.psm_pocketschool.News
 import com.example.psm_pocketschool.R
 import com.example.psm_pocketschool.fragments.DetalleTarea
@@ -15,7 +16,7 @@ import java.time.Month
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AdapterHomeFragment (private val List: ArrayList<News>):
+class AdapterHomeFragment (private val List: ArrayList<Tarea>):
     RecyclerView.Adapter<AdapterHomeFragment.MyViewHolder>(){
     class MyViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         val txtNombreGrupo:TextView=itemView.findViewById(R.id.txtNombreGrupo)
@@ -38,9 +39,9 @@ class AdapterHomeFragment (private val List: ArrayList<News>):
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem=List[position]
-        holder.txtNombreGrupo.text=currentItem.title
+        holder.txtNombreGrupo.text= currentItem.grupoStruct!!.nameGroup
         holder.txtTituloTarea.text=currentItem.title
-        holder.txtDescrTarea.text=currentItem.desc
+        holder.txtDescrTarea.text=currentItem.description
         holder.txtFechaTarea.text= LocalDate.now().toString()
     }
 

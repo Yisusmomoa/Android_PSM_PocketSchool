@@ -52,7 +52,7 @@ class MisTareas : Fragment() {
         recyclerView=view.findViewById(R.id.rvMisTareas)
         recyclerView.layoutManager=layoutManager
         recyclerView.setHasFixedSize(true)
-        adapter= AdapterHomeFragment(newsArrayList)
+        //adapter= AdapterHomeFragment(newsArrayList)
         recyclerView.adapter=adapter
     }
     companion object {
