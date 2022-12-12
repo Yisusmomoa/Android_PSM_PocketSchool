@@ -1,7 +1,10 @@
 package com.example.psm_pocketschool.Adapters
 
 import android.app.Activity
+import android.os.Environment
+import android.util.Base64.DEFAULT
 import android.util.Base64.decode
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +13,6 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.example.psm_pocketschool.Model.Pdf.PdfClass
 import com.example.psm_pocketschool.R
-import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Byte.decode
@@ -43,9 +45,23 @@ class AdapterPdfDownload(private val context: Activity, private val arrayList:Ar
         val btnDownloadPDF: ImageButton =view.findViewById(R.id.btnDownloadPDF)
         txtNamePdf.text=pdfList[position].pdfName
         btnDownloadPDF.setOnClickListener {
-
             val cleanString = pdfList[position].pdfBase64String.filter { validBase64Chars.contains(it) }
             val decoded = Base64.getDecoder().decode(cleanString)
+
+            base64ToPdf(cleanString, "mi_archivo.pdf")
+
+
+            /*
+            val quiensabe=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            //val dwldsPath: File = File( quiensabe + "/" + pdfList[position].pdfName.toString() + ".pdf")
+            val dwldsPath: File = File("${quiensabe}/${pdfList[position].pdfName.toString()}.pdf")
+            val pdfAsBytes: ByteArray = android.util.Base64.decode(decoded, 0)
+            val os: FileOutputStream
+            os = FileOutputStream(dwldsPath, false)
+            os.write(pdfAsBytes)
+            os.flush()
+            os.close()
+             */
 
             /*var bos: BufferedOutputStream? = null
             var fos: FileOutputStream? = null
@@ -70,6 +86,11 @@ class AdapterPdfDownload(private val context: Activity, private val arrayList:Ar
         return view
     }
 
+    fun base64ToPdf(base64: String, fileName: String) {
+        val decodedBytes = android.util.Base64.decode(base64, android.util.Base64.DEFAULT)
+        val pdfFile = File(fileName)
+        pdfFile.writeBytes(decodedBytes)
+    }
 
 
 }
