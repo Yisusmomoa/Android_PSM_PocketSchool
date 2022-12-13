@@ -22,6 +22,8 @@ import com.example.psm_pocketschool.View.IGetHomeworksView
 import com.example.psm_pocketschool.core.isConnected
 import com.example.psm_pocketschool.databinding.FragmentAddGroupBinding
 import com.example.psm_pocketschool.databinding.FragmentHomeBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,14 +52,20 @@ class Home : Fragment() , IGetHomeworksView{
         super.onCreate(savedInstanceState)
 
         //verifica si esta conectado a través del objeto isConnected
-        if (isConnected.isConnected(requireContext())){
-            getHomeworksController= GetHomeworksController(this)
+        if (isConnected.isConnected(requireContext())) {
+            getHomeworksController = GetHomeworksController(this)
             getHomeworksController!!.onGetHomeworks(prefs.getUid()!!)
+
         }
         else{
             //sino, uso sqlite
-            offlineTareas()
+            GlobalScope.launch {
+                offlineTareas()
+
+            }
         }
+
+
 
     }
 

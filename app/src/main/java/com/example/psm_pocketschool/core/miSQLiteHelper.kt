@@ -62,32 +62,48 @@ class miSQLiteHelper(var context: Context):SQLiteOpenHelper(context, SetDB.DB_NA
         val values: ContentValues = ContentValues()
         var boolResult:Boolean =  true
 
+        //Insert en la tabla tarea
         values.put(SetDB.tblTarea.COL_TITLE, tarea.title)
         values.put(SetDB.tblTarea.COL_DESCR, tarea.description)
         values.put(SetDB.tblTarea.COL_UID, tarea.uid)
         values.put(SetDB.tblTarea.COL_Grupo_ID, tarea.grupo)
+        //Insert en la tabla tarea
 
         try {
+            //Insert en la tabla tarea
             val result=dataBase.insert(SetDB.tblTarea.TABLE_NAME, null, values)
-            //result es el id
+            //Insert en la tabla tarea
+
+            //obtener el ultimo id insertado
+            val cursor=dataBase.rawQuery("SELECT last_insert_rowid()", null)
+            var id:Int=0
+            if (cursor.moveToLast()){
+                id=cursor.getInt(0)
+            }
+            //obtener el ultimo id insertado
+
             if (result==(0).toLong()){
                 Toast.makeText(this.context, "Failed", Toast.LENGTH_SHORT).show()
             }
             else{
+                //Insert en la tabla grupo
                 values.clear()
                 values.put(SetDB.tblGrupo.COL_UID_Group, tarea.grupoStruct?.uid)
                 values.put(SetDB.tblGrupo.COL_NAME_GROUP, tarea.grupoStruct?.nameGroup)
                 values.put(SetDB.tblGrupo.COL_UID_Grupo_TareaP, tarea.uid)
-                values.put(SetDB.tblGrupo.COL_ID_TAREAFK, result)
+                values.put(SetDB.tblGrupo.COL_ID_TAREAFK, id)
                 val resultGrupo=dataBase.insert(SetDB.tblGrupo.TABLE_NAME, null, values)
+                //Insert en la tabla grupo
 
+                //Insert en la tabla pdfs
                 values.clear()
                 tarea.pdfsTarea?.forEach {
                     values.put(SetDB.tblListPdfs.COL_UID_Tarea, tarea.uid)
                     values.put(SetDB.tblListPdfs.COL_PDF_Str, it)
-                    values.put(SetDB.tblListPdfs.COL_ID_PDF_TareaFK, result)
+                    values.put(SetDB.tblListPdfs.COL_ID_PDF_TareaFK, id)
                     values.put(SetDB.tblListPdfs.COL_UID_Tarea, tarea.uid)
                 }
+                //Insert en la tabla pdfs
 
                 //Toast.makeText(this.context, "Success", Toast.LENGTH_SHORT).show()
                 Log.d("ENTRO", "Inserta tablas 2")
@@ -119,6 +135,8 @@ class miSQLiteHelper(var context: Context):SQLiteOpenHelper(context, SetDB.DB_NA
             null,
             SetDB.tblTarea.COL_ID + " ASC")
         Log.d("ENTRO", "Recupera tablas")
+        //obtener las tareas y los grupos
+        //TODO: Falta recuperar los pdf
         if (data.moveToFirst()){
             do {
                 val tarea:Tarea=Tarea()
@@ -128,6 +146,7 @@ class miSQLiteHelper(var context: Context):SQLiteOpenHelper(context, SetDB.DB_NA
                 tarea.description=data.getString(data.getColumnIndex(SetDB.tblTarea.COL_DESCR)).toString()
                 tarea.grupo=data.getString(data.getColumnIndex(SetDB.tblTarea.COL_Grupo_ID)).toString()
                 tarea.grupoStruct=getGroup(idTareaAux)
+
                 List.add(tarea)
 
             }while (data.moveToNext())
@@ -144,7 +163,7 @@ class miSQLiteHelper(var context: Context):SQLiteOpenHelper(context, SetDB.DB_NA
         SetDB.tblGrupo.COL_NAME_GROUP)
 
         //val where:String =  SetDB.tblAlbum.COL_ID + "= ${intID.toString()}"
-        val where:String=SetDB.tblGrupo.COL_UID_Group+"= ${idTarea.toString()}"
+        val where:String=SetDB.tblGrupo.COL_ID_TAREAFK+"= ${idTarea.toString()}"
         val data =  dataBase.query(SetDB.tblGrupo.TABLE_NAME,
             columns,
             where,
@@ -160,6 +179,31 @@ class miSQLiteHelper(var context: Context):SQLiteOpenHelper(context, SetDB.DB_NA
         }
         data.close()
         return grupo
+    }
+
+    @SuppressLint("Range")
+    public fun getPdf(idTarea:Int):String?{
+        var pdfStr:String=""
+        val dataBase:SQLiteDatabase = this.writableDatabase
+        val columns:Array<String> =  arrayOf(
+            SetDB.tblListPdfs.COL_ID,
+            SetDB.tblListPdfs.COL_PDF_Str,
+            SetDB.tblListPdfs.COL_ID_PDF_TareaFK)
+        val where:String=SetDB.tblListPdfs.COL_ID_PDF_TareaFK+"=${idTarea.toString()}"
+
+        val data=dataBase.query(SetDB.tblListPdfs.TABLE_NAME,
+        columns,
+        where,
+        null,
+        null,
+        null,
+        SetDB.tblListPdfs.COL_ID + " ASC")
+
+        if (data.moveToFirst()){
+            pdfStr=data.getString(data.getColumnIndex(SetDB.tblListPdfs.COL_PDF_Str)).toString()
+        }
+        data.close()
+        return pdfStr
     }
 
 }

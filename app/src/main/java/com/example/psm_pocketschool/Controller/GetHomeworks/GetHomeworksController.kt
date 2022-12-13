@@ -2,11 +2,13 @@ package com.example.psm_pocketschool.Controller.GetHomeworks
 
 import android.content.Context
 import android.net.ConnectivityManager
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.getSystemService
 import com.example.psm_pocketschool.Controller.GetGroupById.GetGroupByIdController
 import com.example.psm_pocketschool.Model.Tarea.Tarea
 import com.example.psm_pocketschool.Session.UserApplication.Companion.dbHelper
 import com.example.psm_pocketschool.View.IGetHomeworksView
+import com.example.psm_pocketschool.core.isConnected
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +33,7 @@ class GetHomeworksController(
                 iGetHomeworksView.onSuccessHomeworks(tareas as ArrayList<Tarea>)
             }
             else{
-                dbHelper.getTareas()
+                iGetHomeworksView.onSuccessHomeworks(dbHelper.getTareas() as ArrayList<Tarea>)
             }
         }
     }
