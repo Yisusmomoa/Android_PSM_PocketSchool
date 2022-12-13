@@ -16,8 +16,10 @@ import com.example.psm_pocketschool.Model.Tarea.Tarea
 import com.example.psm_pocketschool.Model.User.User
 import com.example.psm_pocketschool.News
 import com.example.psm_pocketschool.R
+import com.example.psm_pocketschool.Session.UserApplication.Companion.dbHelper
 import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
 import com.example.psm_pocketschool.View.IGetHomeworksView
+import com.example.psm_pocketschool.core.isConnected
 import com.example.psm_pocketschool.databinding.FragmentAddGroupBinding
 import com.example.psm_pocketschool.databinding.FragmentHomeBinding
 
@@ -42,13 +44,20 @@ class Home : Fragment() , IGetHomeworksView{
     private lateinit var recyclerView: RecyclerView
     private lateinit var newsArrayList:ArrayList<News>
     private var getHomeworksController:GetHomeworksController?=null
-    private var arrayListHomeworks:ArrayList<Tarea> = ArrayList()
+    //private var arrayListHomeworks:ArrayList<Tarea> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getHomeworksController= GetHomeworksController(this)
-        getHomeworksController!!.onGetHomeworks(prefs.getUid()!!)
 
+        //verifica si esta conectado a través del objeto isConnected
+        if (isConnected.isConnected(requireContext())){
+            getHomeworksController= GetHomeworksController(this)
+            getHomeworksController!!.onGetHomeworks(prefs.getUid()!!)
+        }
+        else{
+            //sino, uso sqlite
+            offlineTareas()
+        }
 
     }
 
@@ -69,12 +78,6 @@ class Home : Fragment() , IGetHomeworksView{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //dataInitialize()
-
-
-
-        //val addHomework: View = view.findViewById(R.id.addHomework)
-
         binding.addHomework.setOnClickListener { view ->
             val intent =Intent(view.context, MainActivity2::class.java)
             startActivity(intent)
@@ -98,8 +101,12 @@ class Home : Fragment() , IGetHomeworksView{
         }
     }
 
-    override fun onSuccessHomeworks(homeworks: ArrayList<Tarea>) {
-        arrayListHomeworks=homeworks
+    private fun offlineTareas(){
+        val listTareas=dbHelper.getTareas() as ArrayList<Tarea>
+        initRV(listTareas)
+    }
+
+    fun initRV(arrayListHomeworks:ArrayList<Tarea>){
         requireActivity().runOnUiThread {
             val layoutManager=LinearLayoutManager(context)
             //recyclerView= view!!.findViewById(R.id.recyclerView)
@@ -109,6 +116,11 @@ class Home : Fragment() , IGetHomeworksView{
             adapter= AdapterHomeFragment(arrayListHomeworks)
             recyclerView.adapter=adapter
         }
+    }
+
+    override fun onSuccessHomeworks(homeworks: ArrayList<Tarea>) {
+        //arrayListHomeworks=homeworks
+        initRV(homeworks)
     }
 
 }
