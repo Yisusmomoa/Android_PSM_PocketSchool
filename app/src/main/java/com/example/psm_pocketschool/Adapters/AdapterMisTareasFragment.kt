@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -57,18 +58,14 @@ class AdapterMisTareasFragment(private val mContext: Context, private val List: 
                         //mejor hacer un actcivity
                     }
                     1->{
-                        GlobalScope.launch {
-                            //TODO: Funciona, pero no muestra el toast y no me redirige
-                            if (deleteHomeworkController.onDeleteHomework(currentItem.uid)){
-                                Toast.makeText(mContext, "Tarea, eliminada con exito", Toast.LENGTH_SHORT).show()
-                                val fragmentMisTareasBinding=MisTareas()
-                                val transaction =it.context as AppCompatActivity
-                                transaction.supportFragmentManager?.beginTransaction()
-                                    .replace(R.id.frame_layout, fragmentMisTareasBinding)
-                                    .disallowAddToBackStack()
-                                    .commit()
-                            }
-                        }
+                        deleteHomeworkController.onDeleteHomework(currentItem.uid)
+                            Toast.makeText(mContext, "Tarea, eliminada con exito", Toast.LENGTH_SHORT).show()
+                            val fragmentMisTareasBinding=MisTareas()
+                            val transaction =it.context as AppCompatActivity
+                            transaction.supportFragmentManager?.beginTransaction()
+                                .replace(R.id.frame_layout, fragmentMisTareasBinding)
+                                .disallowAddToBackStack()
+                                .commit()
                     }
                     2->{
                         dialog.dismiss()
