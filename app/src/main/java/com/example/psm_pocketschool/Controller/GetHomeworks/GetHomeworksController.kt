@@ -24,7 +24,7 @@ class GetHomeworksController(
 
         myScope.launch {
             val tareas=getHomeworksRepository.getHomeworksByUser(uid)
-            if (tareas!=null){
+            if (tareas!!.size>0){
                 tareas.forEach {
                     it.grupoStruct=getGroupByIdController.onGetGroup(it.grupo)
                     //guardar en sqlite
@@ -33,7 +33,7 @@ class GetHomeworksController(
                 iGetHomeworksView.onSuccessHomeworks(tareas as ArrayList<Tarea>)
             }
             else{
-                iGetHomeworksView.onSuccessHomeworks(dbHelper.getTareas() as ArrayList<Tarea>)
+                //iGetHomeworksView.onSuccessHomeworks(dbHelper.getTareas() as ArrayList<Tarea>)
             }
         }
     }
