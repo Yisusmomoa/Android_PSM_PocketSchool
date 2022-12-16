@@ -38,6 +38,20 @@ class miSQLiteHelper(var context: Context):SQLiteOpenHelper(context, SetDB.DB_NA
                     SetDB.tblListPdfs.COL_ID_PDF_TareaFK+" INTEGER, "+
                     SetDB.tblListPdfs.PDF_File+ " BLOB)"
             db?.execSQL(createPdfTable)
+
+            val createDraftTarea:String="CREATE TABLE "+SetDB.tbldraftTarea.TABLE_NAME+"("+
+                    SetDB.tbldraftTarea.COL_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                    SetDB.tbldraftTarea.COL_TITLE_TAREA+" VARCHAR(255), "+
+                    SetDB.tbldraftTarea.COL_DESCR_TAREA+ " VARCHAR(255), "+
+                    SetDB.tbldraftTarea.COL_DATE_FIN+ " VARCHAR(255) )"
+            db?.execSQL(createDraftTarea)
+
+            val createDraftGrupo:String="CREATE TABLE "+SetDB.tbldraftGrupos.TABLE_NAME+"("+
+                    SetDB.tbldraftGrupos.COL_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                    SetDB.tbldraftGrupos.COL_UID_GRUPO+" VARCHAR(255), "+
+                    SetDB.tbldraftGrupos.COL_NAMEGRUPO_GRUPO+" VARCHAR(255) )"
+            db?.execSQL(createDraftGrupo)
+
             Log.e("ENTRO","CREO TABLAS")
         }
         catch (e: Exception){
@@ -53,6 +67,12 @@ class miSQLiteHelper(var context: Context):SQLiteOpenHelper(context, SetDB.DB_NA
         db!!.execSQL(dropGroup)
         val dropPdf="DROP TABLE IF EXISTS ${SetDB.tblListPdfs.TABLE_NAME}"
         db!!.execSQL(dropPdf)
+
+        val dropDraftTarea="DROP TABLE IF EXISTS ${SetDB.tbldraftTarea.TABLE_NAME}"
+        db!!.execSQL(dropDraftTarea)
+        val dropDraftGrupo="DROP TABLE IF EXISTS ${SetDB.tbldraftGrupos.TABLE_NAME}"
+        db!!.execSQL(dropDraftGrupo)
+
         Log.e("ENTRO","Update TABLAS")
     }
 
@@ -115,6 +135,90 @@ class miSQLiteHelper(var context: Context):SQLiteOpenHelper(context, SetDB.DB_NA
         }
         dataBase.close()
         return boolResult
+    }
+
+    fun insertDraftTarea(tarea:Tarea, listGrupos:List<Grupo>){
+        val dataBase:SQLiteDatabase = this.writableDatabase
+        val values: ContentValues = ContentValues()
+
+        //insert en draftTarea
+        values.put(SetDB.tbldraftTarea.COL_TITLE_TAREA, tarea.title)
+        values.put(SetDB.tbldraftTarea.COL_DESCR_TAREA, tarea.description)
+        //values.put(SetDB.tbldraftTarea.COL_DATE_FIN, tarea.dateFin)
+        try {
+            val result=dataBase.insert(SetDB.tbldraftTarea.TABLE_NAME, null, values)
+            if (result!=(0).toLong()){
+                //Insert en la tabla draftgrupo
+                values.clear()
+                listGrupos.forEach {
+                    values.put(SetDB.tbldraftGrupos.COL_UID_GRUPO, it.uid)
+                    values.put(SetDB.tbldraftGrupos.COL_NAMEGRUPO_GRUPO, it.nameGroup)
+
+                    values.clear()
+                }
+            }
+
+        }
+        catch (e: Exception){
+            Log.e("Execption", e.toString())
+        }
+        dataBase.close()
+    }
+
+    @SuppressLint("Range")
+    fun getDraftTarea(): Tarea? {
+        var tarea:Tarea?=null
+        val dataBase:SQLiteDatabase = this.writableDatabase
+        val columns:Array<String> =  arrayOf(
+            SetDB.tbldraftTarea.COL_ID,
+            SetDB.tbldraftTarea.COL_TITLE_TAREA,
+            SetDB.tbldraftTarea.COL_DESCR_TAREA,
+            //SetDB.tbldraftTarea.COL_DATE_FIN
+        )
+        val data=dataBase.query(SetDB.tbldraftTarea.TABLE_NAME,
+            columns,
+            null,
+            null,
+            null,
+            null,
+            SetDB.tbldraftTarea.COL_ID + " ASC"
+        )
+        if (data.moveToFirst()){
+            tarea=Tarea()
+            tarea.title=data.getString(data.getColumnIndex(SetDB.tbldraftTarea.COL_TITLE_TAREA)).toString()
+            tarea.description=data.getString(data.getColumnIndex(SetDB.tbldraftTarea.COL_DESCR_TAREA)).toString()
+            tarea.dateFin=data.getString(data.getColumnIndex(SetDB.tbldraftTarea.COL_DATE_FIN)).toString()
+        }
+        data.close()
+        return tarea
+    }
+
+    @SuppressLint("Range")
+    fun getDraftGrupos():MutableList<Grupo>{
+        val List:MutableList<Grupo> = ArrayList()
+        val dataBase:SQLiteDatabase = this.writableDatabase
+        val columns:Array<String> =  arrayOf(
+            SetDB.tbldraftGrupos.COL_ID,
+            SetDB.tbldraftGrupos.COL_UID_GRUPO,
+            SetDB.tbldraftGrupos.COL_NAMEGRUPO_GRUPO
+        )
+        val data =  dataBase.query(SetDB.tbldraftGrupos.TABLE_NAME,
+            columns,
+            null,
+            null,
+            null,
+            null,
+            SetDB.tbldraftGrupos.COL_ID + " ASC")
+
+        if (data.moveToFirst()){
+            do {
+                val grupo:Grupo= Grupo()
+                grupo.uid=data.getString(data.getColumnIndex(SetDB.tbldraftGrupos.COL_UID_GRUPO)).toString()
+                grupo.nameGroup=data.getString(data.getColumnIndex(SetDB.tbldraftGrupos.COL_NAMEGRUPO_GRUPO)).toString()
+                List.add(grupo)
+            }while (data.moveToNext())
+        }
+        return List
     }
 
     @SuppressLint("Range")

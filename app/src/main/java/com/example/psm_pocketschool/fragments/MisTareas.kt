@@ -69,13 +69,15 @@ class MisTareas : Fragment() , IGetHomeworksTeacherView, View.OnLongClickListene
 
     fun initRV(arrayListHomeworks:ArrayList<Tarea>){
         requireActivity().runOnUiThread {
-            val layoutManager= LinearLayoutManager(context)
-            //recyclerView=view.findViewById(R.id.rvMisTareas)
-            recyclerView=binding.rvMisTareas
-            recyclerView.layoutManager=layoutManager
-            recyclerView.setHasFixedSize(true)
-            adapter= AdapterMisTareasFragment(requireContext(), arrayListHomeworks)
-            recyclerView.adapter=adapter
+            run {
+                val layoutManager= LinearLayoutManager(context)
+                //recyclerView=view.findViewById(R.id.rvMisTareas)
+                recyclerView=binding.rvMisTareas
+                recyclerView.layoutManager=layoutManager
+                recyclerView.setHasFixedSize(true)
+                adapter= AdapterMisTareasFragment(requireContext(), arrayListHomeworks)
+                recyclerView.adapter=adapter
+            }
         }
     }
 

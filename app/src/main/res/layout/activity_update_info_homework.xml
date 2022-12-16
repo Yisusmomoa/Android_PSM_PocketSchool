@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundPocketSchool"
-    tools:context=".MainActivity3">
+    tools:context=".UpdateInfoHomework">
+
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
@@ -35,47 +36,45 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/txtAdjPdfs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:drawableRight="@drawable/ic_baseline_attach_file_24"
-                    android:gravity="center"
-                    android:padding="15dp"
-                    android:text="Adjuntar PDFS"
-                    android:textSize="28sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.148" />
 
-                <ListView
-                    android:id="@+id/listPDFSPublic"
+                <EditText
+                    android:id="@+id/editTextTitleHomework"
                     android:layout_width="300dp"
-                    android:layout_height="350dp"
-                    android:layout_marginBottom="256dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Title homework"
+                    android:inputType="textPersonName"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.495"
-                    tools:listitem="@layout/list_pdf"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtAdjPdfs"
-                    app:layout_constraintVertical_bias="0.827"
-                    tools:ignore="UnknownId"></ListView>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.235" />
+
+                <EditText
+                    android:id="@+id/editTextDescHomework"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Descr homework"
+                    android:inputType="textPersonName"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.495"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTitleHomework"
+                    app:layout_constraintVertical_bias="0.116" />
 
                 <Button
-                    android:id="@+id/btnPublicHomework"
+                    android:id="@+id/btnActuaizarTarea"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="96dp"
+                    android:layout_marginBottom="228dp"
                     android:backgroundTint="@color/accionesPocketSchool"
-                    android:drawableRight="@drawable/ic_baseline_upload_24"
+                    android:drawableTint="@color/fuente1PocketSchool"
                     android:padding="5dp"
-                    android:text="Publicar"
+                    android:text="Save"
                     android:textSize="24sp"
                     app:cornerRadius="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -83,8 +82,31 @@
                     app:layout_constraintHorizontal_bias="0.496"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/_dynamic"
-                    app:layout_constraintVertical_bias="0.327"
-                    tools:ignore="UnknownIdInLayout" />
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:ignore="UnknownId,UnknownIdInLayout" />
+
+                <EditText
+                    android:id="@+id/editTextDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="date"
+                    app:layout_constraintBottom_toTopOf="@+id/btnActuaizarTarea"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextDescHomework" />
+
+                <FrameLayout
+                    android:id="@+id/frame_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="55dp"
+                    app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                </FrameLayout>
+
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/bottomNavigationView"
                     android:layout_width="0dp"
@@ -98,6 +120,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:menu="@menu/bottom_nav">
                 </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -112,5 +136,6 @@
 
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

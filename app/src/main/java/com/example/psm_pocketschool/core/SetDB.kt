@@ -5,7 +5,7 @@ class SetDB {
     //DECLARAMOS  EL NOMBRE Y VERSION DE TAL FOR QUE PUEDA SER VISIBLES PARA CUALQUIER CLASE
     companion object{
         val DB_NAME =  "bdProject.db"
-        val DB_VERSION =  9
+        val DB_VERSION =  10
     }
 
     abstract class tblTarea{
@@ -42,9 +42,23 @@ class SetDB {
         }
     }
 
-    abstract class tblListGuposInTareas{
+    abstract class tbldraftTarea{
         companion object{
+            val TABLE_NAME="DraftTarea"
+            val COL_ID="_id"
+            val COL_TITLE_TAREA="title"
+            val COL_DESCR_TAREA="descr"
+            val COL_DATE_FIN="dateFin"
 
+        }
+    }
+
+    abstract class tbldraftGrupos{
+        companion object{
+            val TABLE_NAME="DraftGrupo"
+            val COL_ID="_id"
+            val COL_UID_GRUPO="uid"
+            val COL_NAMEGRUPO_GRUPO="nameGroup"
         }
     }
 

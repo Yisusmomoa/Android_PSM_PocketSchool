@@ -3,6 +3,7 @@ package com.example.psm_pocketschool.Adapters
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,11 +13,13 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.psm_pocketschool.Controller.DeleteHomework.DeleteHomeworkController
 import com.example.psm_pocketschool.Model.Tarea.Tarea
 import com.example.psm_pocketschool.News
 import com.example.psm_pocketschool.R
+import com.example.psm_pocketschool.UpdateInfoHomework
 import com.example.psm_pocketschool.fragments.DetalleTarea
 import com.example.psm_pocketschool.fragments.MisTareas
 import com.google.gson.Gson
@@ -46,7 +49,8 @@ class AdapterMisTareasFragment(private val mContext: Context, private val List: 
         holder.itemView.setOnLongClickListener {
 
             val options= arrayOf<CharSequence>(
-                "Editar",
+                "Editar Información",
+                "Añadir pdf",
                 "Eliminar",
                 "Cancelar"
             )
@@ -55,9 +59,20 @@ class AdapterMisTareasFragment(private val mContext: Context, private val List: 
             builder.setItems(options, DialogInterface.OnClickListener { dialog, which ->
                 when(which){
                     0->{
-                        //mejor hacer un actcivity
+                        //Mandar info desde aquí
+                        val intent=Intent(mContext, UpdateInfoHomework::class.java)
+
+                        intent.putExtra("uid", currentItem.uid)
+                        intent.putExtra("title", currentItem.title)
+                        intent.putExtra("descr", currentItem.description)
+                        intent.putExtra("fechaFin", currentItem.dateFin)
+                        mContext.startActivity(intent)
+
                     }
                     1->{
+
+                    }
+                    2->{
                         deleteHomeworkController.onDeleteHomework(currentItem.uid)
                             Toast.makeText(mContext, "Tarea, eliminada con exito", Toast.LENGTH_SHORT).show()
                             val fragmentMisTareasBinding=MisTareas()
@@ -67,7 +82,7 @@ class AdapterMisTareasFragment(private val mContext: Context, private val List: 
                                 .disallowAddToBackStack()
                                 .commit()
                     }
-                    2->{
+                    3->{
                         dialog.dismiss()
                     }
                 }

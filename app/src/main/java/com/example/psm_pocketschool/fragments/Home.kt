@@ -116,13 +116,15 @@ class Home : Fragment() , IGetHomeworksView{
 
     fun initRV(arrayListHomeworks:ArrayList<Tarea>){
         requireActivity().runOnUiThread {
-            val layoutManager=LinearLayoutManager(context)
-            //recyclerView= view!!.findViewById(R.id.recyclerView)
-            recyclerView= binding.recyclerView
-            recyclerView.layoutManager=layoutManager
-            recyclerView.setHasFixedSize(true)
-            adapter= AdapterHomeFragment(arrayListHomeworks)
-            recyclerView.adapter=adapter
+            run {
+                val layoutManager=LinearLayoutManager(context)
+                //recyclerView= view!!.findViewById(R.id.recyclerView)
+                recyclerView= binding.recyclerView
+                recyclerView.layoutManager=layoutManager
+                recyclerView.setHasFixedSize(true)
+                adapter= AdapterHomeFragment(arrayListHomeworks)
+                recyclerView.adapter=adapter
+            }
         }
     }
 

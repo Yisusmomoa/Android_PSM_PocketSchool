@@ -61,5 +61,12 @@ class Tarea {
         this.grupo = grupo
     }
 
+    constructor(uid: String, title: String, description: String, dateFin: String) {
+        this.uid = uid
+        this.title = title
+        this.description = description
+        this.dateFin = dateFin
+    }
+
 
 }

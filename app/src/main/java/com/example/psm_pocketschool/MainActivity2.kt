@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -31,6 +32,7 @@ class MainActivity2 : AppCompatActivity(), IGetGroupsByUserView, AdapterView.OnI
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("ciclovida", "Ingresa a oncreate")
         //setContentView(R.layout.activity_main2)
         binding=ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -71,5 +73,28 @@ class MainActivity2 : AppCompatActivity(), IGetGroupsByUserView, AdapterView.OnI
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val grup: Grupo =groupsListStruct[position]
         listOfGrupos.add(grup.uid)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("ciclovida", "Ingresa a onresume")
+    }
+
+    //se pierde el foco, presiono el botón de atras o se cambio la pantalla o la minimizo
+    override fun onPause() {
+        super.onPause()
+        Log.d("ciclovida", "Ingresa a onpause")
+    }
+
+    //ya no es visible en la pantalla
+    override fun onStop() {
+        super.onStop()
+        Log.d("ciclovida", "Ingresa a onstop")
+    }
+
+    //inicia nuevamente la activity se reinicia el estado y pasa poor los estados anteriores
+    override fun onRestart() {
+        super.onRestart()
+        Log.d("ciclovida", "Ingresa a onrestart")
     }
 }

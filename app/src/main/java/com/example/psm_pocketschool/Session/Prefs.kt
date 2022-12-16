@@ -22,6 +22,16 @@ class Prefs(val context: Context) {
         editor.commit()
     }
 
+    fun saveDraft(draft:Boolean){
+        var editor=storage.edit()
+        editor.putBoolean("Draft", draft)
+    }
+
+    fun getDraft():Boolean{
+        val draft=storage.getBoolean("Draft",false)
+        return draft
+    }
+
     /*val SHARED_UID="uid"
     val SHARED_NAME="name"
     val SHARED_USERNAME="username"

@@ -66,14 +66,15 @@
                 <ListView
                     android:id="@+id/listGrupos"
                     android:layout_width="300dp"
-                    android:layout_height="350dp"
+                    android:layout_height="250dp"
                     android:layout_marginBottom="236dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.495"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextDescHomework"
-                    app:layout_constraintVertical_bias="1.0">
+                    app:layout_constraintVertical_bias="0.324"
+                    tools:listitem="@layout/list_pdf">
 
                 </ListView>
 
@@ -82,20 +83,20 @@
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="128dp"
+                    android:layout_marginBottom="88dp"
                     android:backgroundTint="@color/accionesPocketSchool"
+                    android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawableTint="@color/fuente1PocketSchool"
                     android:padding="5dp"
                     android:text="Next"
                     android:textSize="24sp"
                     app:cornerRadius="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.495"
+                    app:layout_constraintHorizontal_bias="0.496"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/_dynamic"
                     app:layout_constraintVertical_bias="1.0"
-                    android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
-                    android:drawableTint="@color/fuente1PocketSchool"
                     tools:ignore="UnknownId,UnknownIdInLayout" />
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -122,6 +123,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextDescHomework" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
