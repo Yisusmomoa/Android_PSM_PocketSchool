@@ -8,33 +8,32 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <EditText
-        android:id="@+id/editTextPersonName"
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/idSV"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Name"
-        android:drawableRight="@drawable/ic_baseline_search_24"
-        android:drawableTint="@color/fuente2PocketSchool"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/listStudentsAdd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintVertical_bias="0.595"
+        app:queryHint="Name student">
+
+    </androidx.appcompat.widget.SearchView>
 
     <ListView
         android:id="@+id/listStudentsAdd"
         android:layout_width="match_parent"
         android:layout_height="470dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPersonName"
-        app:layout_constraintVertical_bias="0.083">
-    </ListView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.429"></ListView>
 
     <EditText
         android:id="@+id/editTextGroupName"

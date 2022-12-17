@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import com.example.psm_pocketschool.Controller.AddGroup.AddGroupController
 import com.example.psm_pocketschool.Controller.GetStudents.GetStudentsController
 import com.example.psm_pocketschool.Model.Carrer.Carrer
@@ -38,7 +35,7 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
 
     var listOfItem=arrayListOf<String>()
     private lateinit var teacher:User
-
+    lateinit var arrayAdapter:ArrayAdapter<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getStudentsController=GetStudentsController(this)
@@ -55,6 +52,8 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
 
         _binding=FragmentAddGroupBinding.inflate(inflater, container, false)
         binding.btnCreateGgroup.setOnClickListener(this)
+
+
 
         return binding.root
     }
@@ -80,9 +79,20 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         //val options:String = parent?.getItemAtPosition(position) as String
         val us: User =arrayListUsers[position]
-        listOfStudents.add(us)
-        Log.d("user", us.toString())
-        Log.d("listUsers", listOfStudents.toString())
+        if(listOfStudents.contains(us)){
+            listOfStudents.remove(us)
+            Log.d("listUsers", "remove")
+            listOfStudents.forEach {
+                Log.d("listUsers", it.uid)
+            }
+        }
+        else{
+            listOfStudents.add(us)
+            Log.d("listUsers", "add")
+            listOfStudents.forEach {
+                Log.d("listUsers", it.uid)
+            }
+        }
 
     }
 
@@ -93,7 +103,7 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
         }
 
         requireActivity().runOnUiThread {
-            val arrayAdapter:ArrayAdapter<String> =ArrayAdapter(requireContext(), android.R.layout.simple_list_item_multiple_choice, listOfItem)
+            arrayAdapter =ArrayAdapter(requireContext(), android.R.layout.simple_list_item_multiple_choice, listOfItem)
             binding.listStudentsAdd.choiceMode=ListView.CHOICE_MODE_MULTIPLE
             binding.listStudentsAdd.adapter=arrayAdapter
             binding.listStudentsAdd.onItemClickListener=this
