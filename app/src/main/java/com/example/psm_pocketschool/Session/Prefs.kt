@@ -22,15 +22,29 @@ class Prefs(val context: Context) {
         editor.commit()
     }
 
+    //para saber si guardo una tarea en sqlite
+    //osea, si creo una tarea estando ofline
     fun saveDraft(draft:Boolean){
         var editor=storage.edit()
         editor.putBoolean("Draft", draft)
+        editor.commit()
     }
-
     fun getDraft():Boolean{
         val draft=storage.getBoolean("Draft",false)
         return draft
     }
+
+    //saber si
+    fun saveGroupsOffline(saveGroups:Boolean){
+        var editor=storage.edit()
+        editor.putBoolean("saveGroups", saveGroups)
+        editor.commit()
+    }
+    fun getGroupsOffline():Boolean{
+        val hayGrupos=storage.getBoolean("saveGroups", true)
+        return hayGrupos
+    }
+
 
     /*val SHARED_UID="uid"
     val SHARED_NAME="name"

@@ -15,10 +15,13 @@ import com.example.psm_pocketschool.Controller.GetGroupsByUser.GetGroupsByUserCo
 import com.example.psm_pocketschool.Model.Grupo.Grupo
 import com.example.psm_pocketschool.Model.User.User
 import com.example.psm_pocketschool.Session.UserApplication
+import com.example.psm_pocketschool.Session.UserApplication.Companion.dbHelper
 import com.example.psm_pocketschool.View.IGetGroupsByUserView
+import com.example.psm_pocketschool.core.isConnected
 import com.example.psm_pocketschool.databinding.ActivityMain2Binding
 import com.example.psm_pocketschool.databinding.ActivityMainBinding
 import java.io.Serializable
+import kotlin.math.log
 
 class MainActivity2 : AppCompatActivity(), IGetGroupsByUserView, AdapterView.OnItemClickListener {
     private lateinit var binding: ActivityMain2Binding
@@ -37,9 +40,17 @@ class MainActivity2 : AppCompatActivity(), IGetGroupsByUserView, AdapterView.OnI
         binding=ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getGroupsByUserController= GetGroupsByUserController(this)
-        var user= UserApplication.prefs.getCredentials()
-        getGroupsByUserController!!.onGetGroups(user)
+        if (isConnected.isConnected(this)){
+            getGroupsByUserController= GetGroupsByUserController(this)
+            //guardr grupos en sqlite
+            var user= UserApplication.prefs.getCredentials()
+            getGroupsByUserController!!.onGetGroups(user)
+        }
+        else{
+            //initRV(dbHelper.getGroupsCreateTarea())
+            groupsListStruct= dbHelper.getGroupsCreateTarea()
+            initRV(groupsListStruct)
+        }
 
         //val btnNextTarea=findViewById<Button>(R.id.btnNextTarea)
         binding.btnNextTarea.setOnClickListener {
@@ -55,12 +66,25 @@ class MainActivity2 : AppCompatActivity(), IGetGroupsByUserView, AdapterView.OnI
 
     }
 
+
     override fun onSuccessGroups(grupos: List<Grupo>) {
         groupsListStruct= grupos as ArrayList<Grupo>
+        initRV(groupsListStruct)
+        /*grupos.forEach {
+            groupsList.add(it.nameGroup)
+        }*/
+    }
+
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val grup: Grupo =groupsListStruct[position]
+        listOfGrupos.add(grup.uid)
+    }
+
+    fun initRV(grupos: List<Grupo>){
         grupos.forEach {
             groupsList.add(it.nameGroup)
         }
-
+        //pasar a una nueva fucnión
         runOnUiThread {
             val arrayAdapter: ArrayAdapter<String> = ArrayAdapter(this, R.layout.simple_list_item_multiple_choice, groupsList)
             //val arrayAdapter: ArrayAdapter<String> = ArrayAdapter(this, R.layout.list, groupsList)
@@ -70,10 +94,19 @@ class MainActivity2 : AppCompatActivity(), IGetGroupsByUserView, AdapterView.OnI
         }
     }
 
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val grup: Grupo =groupsListStruct[position]
-        listOfGrupos.add(grup.uid)
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     override fun onResume() {
         super.onResume()

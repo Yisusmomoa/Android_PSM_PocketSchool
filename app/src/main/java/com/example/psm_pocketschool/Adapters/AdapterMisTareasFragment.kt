@@ -20,6 +20,7 @@ import com.example.psm_pocketschool.Model.Tarea.Tarea
 import com.example.psm_pocketschool.News
 import com.example.psm_pocketschool.R
 import com.example.psm_pocketschool.UpdateInfoHomework
+import com.example.psm_pocketschool.UpdatePdfHomework
 import com.example.psm_pocketschool.fragments.DetalleTarea
 import com.example.psm_pocketschool.fragments.MisTareas
 import com.google.gson.Gson
@@ -67,10 +68,11 @@ class AdapterMisTareasFragment(private val mContext: Context, private val List: 
                         intent.putExtra("descr", currentItem.description)
                         intent.putExtra("fechaFin", currentItem.dateFin)
                         mContext.startActivity(intent)
-
                     }
                     1->{
-
+                        val intent=Intent(mContext, UpdatePdfHomework::class.java)
+                        intent.putExtra("pdfs", currentItem.pdfsTarea as ArrayList)
+                        mContext.startActivity(intent)
                     }
                     2->{
                         deleteHomeworkController.onDeleteHomework(currentItem.uid)

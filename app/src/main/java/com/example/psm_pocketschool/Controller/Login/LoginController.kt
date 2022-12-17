@@ -32,7 +32,9 @@ class LoginController(
         val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
         GlobalScope.launch {
             val response=retrofit.create(ILoginApiClient::class.java).onLogin(requestBody)
-            if (response.isSuccessful) {
+
+            if (response.isSuccessful && response.body()!!.result!=null) {
+                Log.d("Result", response.body()!!.result.toString())
                 //val gson = GsonBuilder().setPrettyPrinting().create()
                 val userAux = User()
                 userAux.uid=response.body()!!.result.uid

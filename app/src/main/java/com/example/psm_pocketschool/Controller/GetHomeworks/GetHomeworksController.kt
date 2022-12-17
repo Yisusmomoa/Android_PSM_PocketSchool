@@ -25,9 +25,11 @@ class GetHomeworksController(
         myScope.launch {
             val tareas=getHomeworksRepository.getHomeworksByUser(uid)
             if (tareas!!.size>0){
+                dbHelper.deleteTareas()
                 tareas.forEach {
                     it.grupoStruct=getGroupByIdController.onGetGroup(it.grupo)
-                    //guardar en sqlite
+                    //borra y guarda en sqlite las tareas que se muestran en la pantalla home en offline
+
                     dbHelper.insertTarea(it)
                 }
                 iGetHomeworksView.onSuccessHomeworks(tareas as ArrayList<Tarea>)

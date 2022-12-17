@@ -18,10 +18,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.psm_pocketschool.Adapters.AdapterPdf
 import com.example.psm_pocketschool.Adapters.OnItemClickListener
 import com.example.psm_pocketschool.Controller.AddHomework.AddHomeworkController
+import com.example.psm_pocketschool.Model.Grupo.Grupo
 import com.example.psm_pocketschool.Model.Pdf.PdfClass
 import com.example.psm_pocketschool.Model.Tarea.AddTarea
 import com.example.psm_pocketschool.Model.Tarea.Tarea
+import com.example.psm_pocketschool.Session.UserApplication.Companion.dbHelper
 import com.example.psm_pocketschool.View.IAddHomeworkView
+import com.example.psm_pocketschool.core.isConnected
 import com.example.psm_pocketschool.databinding.ActivityMain3Binding
 import com.example.psm_pocketschool.fragments.Home
 import kotlinx.coroutines.GlobalScope
@@ -74,9 +77,24 @@ class MainActivity3 : AppCompatActivity(), View.OnClickListener, AdapterView.OnI
                     listAuxTareas.add(auxTarea)
                 }
                 //Log.d("Tarea", listAuxTareas.toString())
-                addHomeworkController?.addHomework(listAuxTareas)
+                //validar si esta conectado
+                if (isConnected.isConnected(this)){
+                //si está conectado, se continua como se haría normalmente
+                    addHomeworkController?.addHomework(listAuxTareas)
+                }
+                else{
+                    //sino
+                    //guardar en sqlite
+                    if (dbHelper.insertDraftTarea(listAuxTareas[0], listOfGrupos )){
+                        Toast.makeText(this, "Tu tarea, se dará de alta cuando estes en línea", Toast.LENGTH_LONG).show()
+                        Thread.sleep(1000)
+                        val intent=Intent(this, com.example.psm_pocketschool.Home::class.java)
+                        startActivity(intent)
 
+                    }
+                }
             }
+
         }
     }
 

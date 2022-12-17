@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.psm_pocketschool.Adapters.AdapterHomeFragment
 import com.example.psm_pocketschool.Controller.GetHomeworks.GetHomeworksController
 import com.example.psm_pocketschool.MainActivity2
+import com.example.psm_pocketschool.Model.Tarea.AddTarea
 import com.example.psm_pocketschool.Model.Tarea.Tarea
 import com.example.psm_pocketschool.Model.User.User
 import com.example.psm_pocketschool.News
@@ -47,7 +48,7 @@ class Home : Fragment() , IGetHomeworksView{
     private lateinit var newsArrayList:ArrayList<News>
     private var getHomeworksController:GetHomeworksController?=null
     //private var arrayListHomeworks:ArrayList<Tarea> = ArrayList()
-
+    private var listAuxTareas:ArrayList<AddTarea> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,13 +56,16 @@ class Home : Fragment() , IGetHomeworksView{
         if (isConnected.isConnected(requireContext())) {
             getHomeworksController = GetHomeworksController(this)
             getHomeworksController!!.onGetHomeworks(prefs.getUid()!!)
-
+            //para dar de alta cuando se conecte
+            if (prefs.getDraft()){
+                listAuxTareas=dbHelper.getDraftInfo()
+                Log.d("ListOffline", listAuxTareas[0].title)
+            }
         }
         else{
             //sino, uso sqlite
             GlobalScope.launch {
                 offlineTareas()
-
             }
         }
 

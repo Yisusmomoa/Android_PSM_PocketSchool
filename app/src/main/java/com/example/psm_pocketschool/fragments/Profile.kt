@@ -18,6 +18,7 @@ import com.example.psm_pocketschool.MainActivity
 import com.example.psm_pocketschool.Model.User.User
 import com.example.psm_pocketschool.R
 import com.example.psm_pocketschool.Session.Prefs
+import com.example.psm_pocketschool.Session.UserApplication.Companion.dbHelper
 import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
 import com.example.psm_pocketschool.View.IUpdateUserView
 import com.example.psm_pocketschool.core.ImageManager
@@ -90,6 +91,10 @@ class Profile : Fragment(), View.OnClickListener, IUpdateUserView {
             }
             R.id.btnCerrarSesion->{
                 prefs.wipe()
+                dbHelper.deleteDraft()
+                dbHelper.deleteGroups()
+                dbHelper.deleteTareas()
+                //aquí debería de borrar las tablas de tareas, draft y grupos
                 val intent = Intent(context, MainActivity::class.java)
                 startActivity(intent)
             }
