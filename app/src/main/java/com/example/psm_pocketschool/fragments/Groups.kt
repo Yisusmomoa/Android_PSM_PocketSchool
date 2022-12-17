@@ -17,6 +17,8 @@ import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
 import com.example.psm_pocketschool.View.IGetGroupsByUserView
 import com.example.psm_pocketschool.databinding.FragmentAddGroupBinding
 import com.example.psm_pocketschool.databinding.FragmentGroupsBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -121,18 +123,17 @@ class Groups : Fragment(), IGetGroupsByUserView, View.OnClickListener {
     override fun onSuccessGroups(grupos: List<Grupo>) {
         groupsList=grupos
 
-        requireActivity().runOnUiThread {
-            val layoutManager=LinearLayoutManager(context)
-            //recyclerView=view.findViewById(R.id.rvGrupos)
-            recyclerView=binding.rvGrupos
-            recyclerView.layoutManager=layoutManager
-            recyclerView.setHasFixedSize(true)
-            //adapter=AdapterGroupsFragment(newsArrayList)
-            adapter=AdapterGroupsFragment(groupsList)
-            recyclerView.adapter=adapter
-
-
+       requireActivity().runOnUiThread {
+           val layoutManager=LinearLayoutManager(context)
+           //recyclerView=view.findViewById(R.id.rvGrupos)
+           recyclerView=binding.rvGrupos
+           recyclerView.layoutManager=layoutManager
+           recyclerView.setHasFixedSize(true)
+           //adapter=AdapterGroupsFragment(newsArrayList)
+           adapter=AdapterGroupsFragment(groupsList)
+           recyclerView.adapter=adapter
         }
+
     }
 
     override fun onClick(v: View?) {

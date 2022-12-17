@@ -15,7 +15,7 @@ class AddHomeworkRepository {
         // Convert JSONObject to String
         //val jsonObjectString = jsonObject.toString()
         //val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
-        Log.d("Tarea", tarea.pdfsTarea.toString())
+        //Log.d("Tarea", tarea.pdfsTarea.toString())
 
         val result=RetrofitHelper.getRetrofit().create(IAddHomeworkApiClient::class.java).addHomework(tarea)
         if (result.isSuccessful){

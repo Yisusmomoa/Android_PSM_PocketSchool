@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.psm_pocketschool.Adapters.AdapterMisTareasFragment
@@ -13,6 +14,8 @@ import com.example.psm_pocketschool.Model.Tarea.Tarea
 import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
 import com.example.psm_pocketschool.View.IGetHomeworksTeacherView
 import com.example.psm_pocketschool.databinding.FragmentMisTareasBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,6 +34,8 @@ class MisTareas : Fragment() , IGetHomeworksTeacherView, View.OnLongClickListene
 
     private lateinit var adapter: AdapterMisTareasFragment
     private lateinit var recyclerView: RecyclerView
+    private lateinit var tempArrayList:ArrayList<Tarea>
+    private lateinit var listHomeowrks:ArrayList<Tarea>
     //private lateinit var newsArrayList:ArrayList<News>
     //private var getHomeworksController:GetHomeworksController?=null
     private var getHomeworksTeacherController:GetHomeworksTeacherController?=null
@@ -46,6 +51,32 @@ class MisTareas : Fragment() , IGetHomeworksTeacherView, View.OnLongClickListene
         savedInstanceState: Bundle?
     ): View? {
         _binding=FragmentMisTareasBinding.inflate(inflater, container, false)
+        //recyclerView=binding.rvMisTareas
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                tempArrayList.clear()
+                val searchText= newText?.toLowerCase(Locale.getDefault())
+                if (searchText!!.isNotEmpty()){
+                    listHomeowrks.forEach {
+                        if (it.title.toLowerCase(Locale.getDefault()).contains(searchText!!)){
+                            tempArrayList.add(it)
+                        }
+                    }
+                    binding.rvMisTareas.adapter!!.notifyDataSetChanged()
+                }
+                else{
+                    tempArrayList.clear()
+                    tempArrayList.addAll(listHomeowrks)
+                    binding.rvMisTareas.adapter!!.notifyDataSetChanged()
+                }
+                return false
+            }
+
+        })
         return binding.root
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_mis_tareas, container, false)
@@ -64,7 +95,9 @@ class MisTareas : Fragment() , IGetHomeworksTeacherView, View.OnLongClickListene
 
 
     override fun onSuccessHomeworks(homeworks: ArrayList<Tarea>) {
-        initRV(homeworks)
+        tempArrayList=homeworks
+        listHomeowrks=homeworks
+        initRV(tempArrayList)
     }
 
     fun initRV(arrayListHomeworks:ArrayList<Tarea>){

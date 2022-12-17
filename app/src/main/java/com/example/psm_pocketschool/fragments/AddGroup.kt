@@ -52,7 +52,22 @@ class AddGroup : Fragment(), AdapterView.OnItemClickListener, IGetStudentsView, 
 
         _binding=FragmentAddGroupBinding.inflate(inflater, container, false)
         binding.btnCreateGgroup.setOnClickListener(this)
+        /*
+        binding.idSV.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                binding.idSV.clearFocus()
+                if(listOfItem.contains(query)){
+                    arrayAdapter.filter.filter(query)
+                }
+                return false
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                arrayAdapter.filter.filter(newText)
+                return false
+            }
+
+        })*/
 
 
         return binding.root

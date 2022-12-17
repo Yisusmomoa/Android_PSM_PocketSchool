@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.psm_pocketschool.Adapters.AdapterHomeFragment
+import com.example.psm_pocketschool.Controller.AddHomework.AddHomeworkController
 import com.example.psm_pocketschool.Controller.GetHomeworks.GetHomeworksController
 import com.example.psm_pocketschool.MainActivity2
 import com.example.psm_pocketschool.Model.Tarea.AddTarea
@@ -19,6 +21,7 @@ import com.example.psm_pocketschool.News
 import com.example.psm_pocketschool.R
 import com.example.psm_pocketschool.Session.UserApplication.Companion.dbHelper
 import com.example.psm_pocketschool.Session.UserApplication.Companion.prefs
+import com.example.psm_pocketschool.View.IAddHomeworkView
 import com.example.psm_pocketschool.View.IGetHomeworksView
 import com.example.psm_pocketschool.core.isConnected
 import com.example.psm_pocketschool.databinding.FragmentAddGroupBinding
@@ -38,7 +41,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Home.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Home : Fragment() , IGetHomeworksView{
+class Home : Fragment() , IGetHomeworksView, IAddHomeworkView {
 
     private var _binding: FragmentHomeBinding?=null
     private val binding get()=_binding!!
@@ -49,9 +52,11 @@ class Home : Fragment() , IGetHomeworksView{
     private var getHomeworksController:GetHomeworksController?=null
     //private var arrayListHomeworks:ArrayList<Tarea> = ArrayList()
     private var listAuxTareas:ArrayList<AddTarea> = ArrayList()
+    private var addHomeworkController: AddHomeworkController?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        addHomeworkController=AddHomeworkController(this)
         //verifica si esta conectado a través del objeto isConnected
         if (isConnected.isConnected(requireContext())) {
             getHomeworksController = GetHomeworksController(this)
@@ -59,7 +64,9 @@ class Home : Fragment() , IGetHomeworksView{
             //para dar de alta cuando se conecte
             if (prefs.getDraft()){
                 listAuxTareas=dbHelper.getDraftInfo()
-                Log.d("ListOffline", listAuxTareas[0].title)
+                addHomeworkController?.addHomework(listAuxTareas)
+                prefs.saveDraft(false)
+                dbHelper.deleteDraft()
             }
         }
         else{
@@ -135,6 +142,19 @@ class Home : Fragment() , IGetHomeworksView{
     override fun onSuccessHomeworks(homeworks: ArrayList<Tarea>) {
         //arrayListHomeworks=homeworks
         initRV(homeworks)
+    }
+
+    override fun OnAddHomeworkSuccess(message: String?) {
+        requireActivity().runOnUiThread {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun OnAddHomeworkError(message: String?) {
+        requireActivity().runOnUiThread {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+
+        }
     }
 
 }
